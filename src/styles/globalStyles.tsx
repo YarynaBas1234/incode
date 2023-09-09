@@ -1,9 +1,111 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
-  * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-  }
+    #root {
+        height: 100%;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+        font-family: "Roboto", sans-serif;
+        font-weight: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+        word-wrap: break-word;
+        outline: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    button {
+        padding: 0;
+        color: inherit;
+        cursor: pointer;
+        background-color: transparent;
+        border-width: 0;
+    }
+
+    figure {
+        margin: 0;
+    }
+
+    ul,
+    ol,
+    dd {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    ol {
+        list-style-position: inside;
+        list-style-type: decimal;
+
+        li + li {
+            margin-top: 8px;
+        }
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+        margin: 0;
+        font-size: inherit;
+    }
+
+    cite {
+        font-style: normal;
+    }
+
+    fieldset {
+        padding: 0;
+        margin: 0;
+        border-width: 0;
+    }
+
+    input[type='search']::-ms-clear {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    input[type='search']::-ms-reveal {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    input {
+        background-color: transparent;
+        border: 0;
+        appearance: none;
+    }
+
+    input::-moz-focus-inner {
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+        border: 0;
+    }
 `;

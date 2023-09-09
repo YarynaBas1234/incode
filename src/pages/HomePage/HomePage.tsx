@@ -1,24 +1,57 @@
 import { useState } from 'react';
-import { useGetCharactersQuery } from 'redux/services/characters/charactersApi';
-import { styled } from 'styles';
+import { Button } from 'components/Button';
+import { Input } from 'components/Input';
+import PageWrapper from 'components/PageWrapper';
+import { styled, theme } from 'styles';
+import { buttonVariants, inputVariants } from 'styles/variants';
+import Characters from './_components/Characters/Characters';
 
-const HomeWrapper = styled.p`
-	color: 'red';
+const HomeWrapper = styled.div`
+	padding: 24px 0;
+	background-color: ${theme.colors.black_1};
 `;
 
+const FilterContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+`;
+
+const FilterConfiguration = styled.div`
+	width: 70%;
+	display: flex;
+	justify-content: space-between;
+`;
+
+const StyledButton = styled(Button)``;
+
 const HomePage = () => {
-	const [page, setPage] = useState(1);
-
-	const { data: charactersData, isLoading: isCharactersDataLoading } = useGetCharactersQuery({page});
-
-	if (isCharactersDataLoading) return <>Loading...</>;
+	const [isShowSearchField, setisShowSearchField] = useState(false);
 
 	return (
 		<HomeWrapper>
-			Homeeee page
-			{charactersData?.info.count}
-			<button onClick={() => setPage((prev) => prev - 1)}>prev</button>
-			<button onClick={() => setPage((prev) => prev + 1)}>next</button>
+			<PageWrapper>
+				<>
+					<FilterContainer>
+						<StyledButton
+							text='Filter'
+							variant={buttonVariants.primary}
+							onClick={() => setisShowSearchField(!isShowSearchField)}
+						/>
+						{isShowSearchField && (
+							<FilterConfiguration>
+								<Input label='Add key words to find' variant={inputVariants.filled} />
+								<StyledButton
+									text='Find'
+									variant={buttonVariants.primary}
+									onClick={() => setisShowSearchField(false)}
+								/>
+							</FilterConfiguration>
+						)}
+					</FilterContainer>
+					<Characters />
+				</>
+			</PageWrapper>
 		</HomeWrapper>
 	);
 };

@@ -1,11 +1,16 @@
 import { ResponsePageInfo } from 'redux/types';
 
+export enum CharacterStatus {
+	Alive = 'Alive',
+	Unknown = 'unknown',
+	Dead = 'Dead',
+}
 export interface ICharactersResponse {
 	info: ResponsePageInfo;
 	results: {
 		id: number;
 		name: string;
-		status: string;
+		status: CharacterStatus;
 		species: string;
 		type: string;
 		gender: string;
