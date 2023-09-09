@@ -1,4 +1,4 @@
 export enum RoutePathConst {
   Home = `/`,
-  Profile = `profile/`
+  Profile = `profile/:id`
 };
