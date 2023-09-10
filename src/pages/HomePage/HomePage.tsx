@@ -7,7 +7,7 @@ import { buttonVariants, inputVariants } from 'styles/variants';
 import Characters from './_components/Characters/Characters';
 
 const HomeWrapper = styled.div`
-	padding: 24px 0;
+	padding: 40px 0 10px;
 	background-color: ${theme.colors.black_1};
 `;
 

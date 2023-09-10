@@ -4,6 +4,7 @@ export const colorVariants = {
 	white: '#F5F5F5',
     gray: '#3C3E44',
 	gray_1: '#9E9E9E',
+	gray_2: '#272B3399',
 	red: '#D63D2E',
 	green: '#55CC44',
 };

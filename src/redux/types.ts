@@ -1,6 +1,6 @@
 export interface ResponsePageInfo {
 	count: number;
-	page: number;
+	pages: number;
 	next: string;
 	prev: null;
 };
