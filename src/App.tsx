@@ -3,7 +3,7 @@ import {ToastContainer} from 'react-toastify';
 import { RoutePathConst } from 'consts';
 import HomePage from 'pages/HomePage';
 import ProfilePage from 'pages/ProfilePage';
-import { Header } from 'components';
+import { Footer, Header } from 'components';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -15,6 +15,7 @@ const App = () => (
 			<Route path={RoutePathConst.Profile} element={<ProfilePage/>} />
 		</Routes>
 		<ToastContainer />
+		<Footer />
 	</>
 );
 

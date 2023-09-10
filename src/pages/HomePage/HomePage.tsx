@@ -34,7 +34,7 @@ const HomePage = () => {
 				<>
 					<FilterContainer>
 						<StyledButton
-							text='Filter'
+							text={isShowSearchField ? 'remove filter' : 'Filter'}
 							variant={buttonVariants.primary}
 							onClick={() => setisShowSearchField(!isShowSearchField)}
 						/>

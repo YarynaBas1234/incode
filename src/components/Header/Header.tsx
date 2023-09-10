@@ -1,9 +1,8 @@
-import { Logo } from 'components/Icons';
-import styled from 'styled-components';
 import HeaderBackgroundImage from 'assets/images/header-background.svg';
 import { RoutePathConst } from 'consts';
-import { H1 } from 'components';
+import { H1, Logo } from 'components';
 import { Link } from 'react-router-dom';
+import { styled } from 'styles';
 
 const HeaderWrapper = styled.header`
 	max-width: 1440px;

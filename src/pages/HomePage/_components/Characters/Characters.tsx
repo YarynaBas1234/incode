@@ -39,25 +39,25 @@ const StatusCharacterContainer = styled.div`
     text-transform: capitalize;
 `;
 
-const StatusCharacterBadge = styled.span<{ colorVariant: ValueOf<ColorsType> }>`
+const StatusCharacterBadge = styled.span<{ colorvariant: ValueOf<ColorsType> }>`
     display: block;
 	width: 9px;
 	height: 9px;
 	margin-right: 7px;
     border-radius: 50%;
-	background-color: ${({ colorVariant }) => colorVariant};
+	background-color: ${({ colorvariant }) => colorvariant};
 `;
 
 const getStatusCharacterBadge = ({ status }: { status: ValueOf<CharacterStatus> }) => {
 	switch (status) {
 		case CharacterStatus.Alive:
-			return <StatusCharacterBadge colorVariant={theme.colors.green} />;
+			return <StatusCharacterBadge colorvariant={theme.colors.green} />;
 		case CharacterStatus.Dead:
-			return <StatusCharacterBadge colorVariant={theme.colors.red} />;
+			return <StatusCharacterBadge colorvariant={theme.colors.red} />;
 		case CharacterStatus.Unknown:
-			return <StatusCharacterBadge colorVariant={theme.colors.gray_1} />;
+			return <StatusCharacterBadge colorvariant={theme.colors.gray_1} />;
 		default:
-			return <StatusCharacterBadge colorVariant={theme.colors.gray_1} />;
+			return <StatusCharacterBadge colorvariant={theme.colors.gray_1} />;
 	}
 };
 
@@ -78,7 +78,7 @@ const Characters = () => {
                             <H2>{item.name}</H2>
                             <StatusCharacterContainer>
                                 {getStatusCharacterBadge({status: item.status})}
-                                <Body fontWeight={500}>{`${item.status} - ${item.species}`}</Body>
+                                <Body>{`${item.status} - ${item.species}`}</Body>
                             </StatusCharacterContainer>
                         </div>
                         <div>
