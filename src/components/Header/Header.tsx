@@ -7,7 +7,7 @@ import { styled } from 'styles';
 const HeaderWrapper = styled.header`
 	max-width: 1440px;
 	width: 100%;
-	padding: 10px 27px;
+	padding: 10px 27px 0;
 	margin: 0 auto;
 `;
 

@@ -1,55 +1,28 @@
 import { useState } from 'react';
-import { Button } from 'components/Button';
-import { Input } from 'components/Input';
 import PageWrapper from 'components/PageWrapper';
 import { styled, theme } from 'styles';
-import { buttonVariants, inputVariants } from 'styles/variants';
 import Characters from './_components/Characters/Characters';
+import { useGetCharactersQuery } from 'redux/services/characters/charactersApi';
+import FiltersControl from './_components/FiltersControl';
 
 const HomeWrapper = styled.div`
 	padding: 40px 0 10px;
 	background-color: ${theme.colors.black_1};
 `;
 
-const FilterContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-`;
-
-const FilterConfiguration = styled.div`
-	width: 70%;
-	display: flex;
-	justify-content: space-between;
-`;
-
-const StyledButton = styled(Button)``;
-
 const HomePage = () => {
-	const [isShowSearchField, setisShowSearchField] = useState(false);
+	const [page, setPage] = useState(1);
+	const { data: charactersData, isLoading: isCharactersDataLoading } = useGetCharactersQuery({ page });
+
+
+	if (isCharactersDataLoading) return <>Loading...</>;
 
 	return (
 		<HomeWrapper>
 			<PageWrapper>
 				<>
-					<FilterContainer>
-						<StyledButton
-							text={isShowSearchField ? 'remove filter' : 'Filter'}
-							variant={buttonVariants.primary}
-							onClick={() => setisShowSearchField(!isShowSearchField)}
-						/>
-						{isShowSearchField && (
-							<FilterConfiguration>
-								<Input label='Add key words to find' variant={inputVariants.filled} />
-								<StyledButton
-									text='Find'
-									variant={buttonVariants.primary}
-									onClick={() => setisShowSearchField(false)}
-								/>
-							</FilterConfiguration>
-						)}
-					</FilterContainer>
-					<Characters />
+					<FiltersControl/>
+					<Characters page={page} setPage={setPage} charactersData={charactersData}/>
 				</>
 			</PageWrapper>
 		</HomeWrapper>

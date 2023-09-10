@@ -1,9 +1,14 @@
 import { Body, H2, PaginationComponent } from 'components';
-import { useState } from 'react';
-import { useGetCharactersQuery } from 'redux/services/characters/charactersApi';
-import { CharacterStatus } from 'redux/services/characters/types';
+import { ICharactersResponse } from 'redux/services/characters/types';
 import { theme, styled } from 'styles';
 import { ColorsType } from 'styles/types';
+import { CharacterStatus } from 'types/character';
+
+interface CharactersProps {
+	charactersData?: ICharactersResponse;
+	page: number;
+	setPage: (page: number) => void;
+}
 
 const CharactersContainer = styled.div`
 	padding-top: 20px;
@@ -67,16 +72,14 @@ const getStatusCharacterBadge = ({ status }: { status: ValueOf<CharacterStatus> 
 	}
 };
 
-const Characters = () => {
-	const [page, setPage] = useState(1);
+const Characters: React.FC<CharactersProps> = (props) => {
+	const { charactersData, page, setPage } = props;
 
 	const handlePageChange = (page: number) => {
 		setPage(page);
 	};
 
-	const { data: charactersData, isLoading: isCharactersDataLoading } = useGetCharactersQuery({ page });
-
-	if (isCharactersDataLoading) return <>Loading...</>;
+	if(!charactersData) return null;
 
 	return (
 		<>
