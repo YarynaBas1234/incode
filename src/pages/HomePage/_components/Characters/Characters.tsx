@@ -1,11 +1,12 @@
 import { Body, FabButton, H2, PaginationComponent, getStatusCharacterBadge } from 'components';
 import { RoutePathConst } from 'consts';
 import { Link } from 'react-router-dom';
-import { ICharactersResponse } from 'redux/services/characters/types';
 import { theme, styled } from 'styles';
+import { ICharacter } from 'types/character';
 
 interface CharactersProps {
-	charactersData?: ICharactersResponse;
+	pages?: number | null;
+	data?: ICharacter[];
 	page: number;
 	setPage: (page: number) => void;
 }
@@ -55,18 +56,19 @@ const LinkStyled = styled(Link)`
 `;
 
 const Characters: React.FC<CharactersProps> = (props) => {
-	const { charactersData, page, setPage } = props;
+	const { data, pages, page, setPage } = props;
 
 	const handlePageChange = (page: number) => {
 		setPage(page);
 	};
 
-	if (!charactersData) return null;
+	// TODO: add empty state
+	if (!data) return null;
 
 	return (
 		<>
 			<CharactersContainer>
-				{charactersData?.results.map((item) => (
+				{data.map((item) => (
 					<CharacterItem key={item.id}>
 						<CharacterImage src={item.image} alt={item.name} />
 						<CharacterItemInfo>
@@ -99,9 +101,11 @@ const Characters: React.FC<CharactersProps> = (props) => {
 					</CharacterItem>
 				))}
 			</CharactersContainer>
-			<PaginationComponentContainer>
-				<PaginationComponent pages={charactersData?.info.pages} page={page} onChange={handlePageChange} />
-			</PaginationComponentContainer>
+			{pages && (
+				<PaginationComponentContainer>
+					<PaginationComponent pages={pages} page={page} onChange={handlePageChange} />
+				</PaginationComponentContainer>
+			)}
 			<FabButton />
 		</>
 	);

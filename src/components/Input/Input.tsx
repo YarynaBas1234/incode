@@ -6,6 +6,9 @@ import { InputVariantsType } from 'styles/types';
 interface IInputProps extends React.ComponentPropsWithoutRef<'input'> {
 	label: string;
 	variant: InputVariantsType;
+	value: string;
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	disabled?: boolean;
 }
 
 const StyledInput = styled(TextField)<IInputProps>`
@@ -28,7 +31,7 @@ const StyledInput = styled(TextField)<IInputProps>`
 `;
 
 export const Input: React.FC<IInputProps> = (props) => {
-	const { label, variant } = props;
+	const { label, variant, value, onChange, disabled } = props;
 
-	return <StyledInput label={label} variant={variant} />;
+	return <StyledInput label={label} variant={variant} value={value} onChange={onChange} disabled={disabled} />;
 };

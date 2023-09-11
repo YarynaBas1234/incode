@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import PageWrapper from 'components/PageWrapper';
+import { useState, useEffect } from 'react';
 import { styled, theme } from 'styles';
-import Characters from './_components/Characters/Characters';
-import { useGetCharactersQuery } from 'redux/services/characters/charactersApi';
 import FiltersControl from './_components/FiltersControl';
 import { Loader } from 'components';
+import Characters from './_components/Characters/Characters';
+import PageWrapper from 'components/PageWrapper';
+import { useGetAllCharactersQuery, useGetMultipleCharactersQuery } from 'redux/services/characters/charactersApi';
+import { useGetLocationsQuery } from 'redux/services/location/locationApi';
+import { useGetEpisodesQuery } from 'redux/services/episode/episodeApi';
 
 const HomeWrapper = styled.div`
 	padding: 40px 0 10px;
@@ -13,17 +15,38 @@ const HomeWrapper = styled.div`
 
 const HomePage = () => {
 	const [page, setPage] = useState(1);
-	
-	const { data: charactersData, isLoading: isCharactersDataLoading } = useGetCharactersQuery({ page });
+	const [characterIds, setCharacterIds] = useState<number[]>([]);
+	const [isFilter] = useState(false);
 
-	if (isCharactersDataLoading) return <Loader />;
+	const { data: charactersData, isLoading: isCharactersDataLoading } = useGetAllCharactersQuery({ page } );
+	const { data: locationsData, isLoading: isLocationsDataLoading } = useGetLocationsQuery({ page }, {skip: !isFilter});
+	const { data: episodesData, isLoading: isEpisodesDataLoading } = useGetEpisodesQuery({ page }, {skip: !isFilter});
+	const { data: multipleCharactersData, isLoading: isMultipleCharactersDataLoading } = useGetMultipleCharactersQuery({ ids: characterIds }, {skip: !isFilter});
+
+	useEffect(() => {
+		let newCharacterIds: number[] = [];
+		if (charactersData) {
+			newCharacterIds = [...newCharacterIds, ...charactersData.charactersIds];
+		}
+		if (locationsData) {
+			newCharacterIds = [...newCharacterIds, ...locationsData.charactersIds];
+		}
+		if (episodesData) {
+			newCharacterIds = [...newCharacterIds, ...episodesData.charactersIds];
+		}
+		setCharacterIds([... new Set(newCharacterIds)]);
+	}, [charactersData, locationsData, episodesData]);
+
+	const isLoading = isCharactersDataLoading || isLocationsDataLoading || isEpisodesDataLoading || isMultipleCharactersDataLoading;
+
+	if (isLoading) return <Loader />;
 
 	return (
 		<HomeWrapper>
 			<PageWrapper>
 				<>
-					<FiltersControl/>
-					<Characters page={page} setPage={setPage} charactersData={charactersData}/>
+					<FiltersControl />
+					<Characters pages={!isFilter ? charactersData?.info.pages : null} page={page} setPage={setPage} data={isFilter ? multipleCharactersData : charactersData?.results} />
 				</>
 			</PageWrapper>
 		</HomeWrapper>

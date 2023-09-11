@@ -1,35 +1,15 @@
-import { ResponsePageInfo } from 'redux/types';
-import { CharacterStatus } from 'types/character';
+import { IResponsePageInfo } from 'redux/types';
+import { ICharacter } from 'types/character';
 
-export interface ICharacter {
-	id: number;
-	name: string;
-	status: CharacterStatus;
-	species: string;
-	type: string;
-	gender: string;
-	origin: {
-		name: string;
-		url: string;
-	};
-	location: {
-		name: string;
-		url: string;
-	};
-	image: string;
-	episode: string[];
-	url: string;
-	created: string;
-}
 export interface ICharactersResponse {
-	info: ResponsePageInfo;
+	info: IResponsePageInfo;
 	results: ICharacter[];
 }
 
-export interface CharactersParams {
-	page: number;
+export interface ICharactersResponseNormalized extends ICharactersResponse{
+	charactersIds: number[];
 }
 
-export interface CharacterIDParams {
-	id: number;
+export interface ICharactersParams {
+	page: number;
 }

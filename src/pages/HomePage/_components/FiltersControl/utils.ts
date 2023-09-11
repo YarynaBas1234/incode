@@ -9,30 +9,28 @@ export const characterFilterOptions = [
 
 export const characterFilterTextFields: CharacterFilterTextFieldsType = {
 	[CharacterFilters.Character]: [
-		{ id: CharacterTextFieldsId.Name, label: 'Add Name' },
-		{ id: CharacterTextFieldsId.Type, label: 'Add Type' },
-		{ id: CharacterTextFieldsId.Dimension, label: 'Add Dimension' },
+		{ id: CharacterTextFieldsId.CharacterName, label: 'Add Character Name' },
+		{ id: CharacterTextFieldsId.CharacterType, label: 'Add Character Type' },
+		{ id: CharacterTextFieldsId.CharacterDimension, label: 'Add Character Dimension' },
 	],
 	[CharacterFilters.Location]: [
-		{ id: CharacterTextFieldsId.Name, label: 'Add Name' },
-		{ id: CharacterTextFieldsId.Status, label: 'Add Status' },
-		{ id: CharacterTextFieldsId.Species, label: 'Add Species' },
-		{ id: CharacterTextFieldsId.Type, label: 'Add Type' },
-		{ id: CharacterTextFieldsId.Gender, label: 'Add Gender' },
+		{ id: CharacterTextFieldsId.LocationName, label: 'Add Location Name' },
+		{ id: CharacterTextFieldsId.LocationStatus, label: 'Add Location Status' },
+		{ id: CharacterTextFieldsId.LocationSpecies, label: 'Add Location Species' },
+		{ id: CharacterTextFieldsId.LocationType, label: 'Add Location Type' },
+		{ id: CharacterTextFieldsId.LocationGender, label: 'Add Location Gender' },
 	],
 	[CharacterFilters.Episodes]: [
-		{ id: CharacterTextFieldsId.Name, label: 'Add Name' },
+		{ id: CharacterTextFieldsId.EpisodeName, label: 'Add Episode Name' },
 		{ id: CharacterTextFieldsId.Episodes, label: 'Add Episodes' },
 	],
 };
 
 export const getFilterTextFields = (options: CharacterFilters[]) => {
-	return options.reduce<ICharacterFilterTextFieldItem[]>((acc, option) => {
-		characterFilterTextFields[option].forEach((item) => {
-			if (!acc.some((elem) => elem.id === item.id)) {
-				acc.push(item);
-			}
-		});
+	return Object.keys(characterFilterTextFields).reduce<ICharacterFilterTextFieldItem[]>((acc, fieldKey) => {
+		if (options.indexOf(fieldKey as CharacterFilters) !== -1) {
+			acc.push(...characterFilterTextFields[fieldKey as CharacterFilters]);
+		}
 		return acc;
 	}, []);
 };

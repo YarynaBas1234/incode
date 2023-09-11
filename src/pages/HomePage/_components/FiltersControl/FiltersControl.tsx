@@ -1,10 +1,14 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Button, Input, MultiSelect } from 'components';
 import Modal from '@mui/material/Modal';
 import { styled } from 'styles';
 import { buttonVariants, inputVariants } from 'styles/variants';
 import { characterFilterOptions, getFilterTextFields } from './utils';
-import { CharacterFilters } from 'types/character';
+import { CharacterFilters, CharacterTextFieldsId } from 'types/character';
+import { RootState } from 'redux/types';
+import { removeFilters } from 'redux/slices/charactersFilterSlice';
+import { useAppDispatch } from 'redux/hooks';
 
 const FilterContainer = styled.div`
 	display: flex;
@@ -36,11 +40,18 @@ const FilterModalTextFields = styled.div`
 `;
 
 const FiltersControl = () => {
+	const dispatch = useAppDispatch();
+	const inititalFilters = useSelector((state: RootState) => state.charactersFilterSlice);
+	const [filters, setFilters] = useState(inititalFilters.filters);
 	const [filterOpen, setFilterOpen] = useState(false);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [options] = useState(characterFilterOptions);
 	const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 	const [isShowSearchField, setisShowSearchField] = useState(false);
+
+	useEffect(() => {
+		setFilters(inititalFilters.filters);
+	}, [inititalFilters])
 
 	const handleFilterOpen = () => {
 		setFilterOpen(true);
@@ -65,11 +76,19 @@ const FiltersControl = () => {
 	};
 
 	const toggleSearchFields = () => {
+		if(isShowSearchField) {
+			clearSelectedOptions();
+			dispatch(removeFilters());
+		}
 		setisShowSearchField(!isShowSearchField);
-		isShowSearchField && clearSelectedOptions();
 	};
 
-	// eslint-disable-next-line
+	const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>, id: CharacterTextFieldsId) => {
+		setFilters((prev) => {
+			return { ...prev, [id]: event.target.value };
+		});
+	};
+
 	const textFieldsConfig = useMemo(() => getFilterTextFields(selectedOptions as CharacterFilters[]), [selectedOptions]);
 
 	if (modalOpen) {
@@ -88,9 +107,20 @@ const FiltersControl = () => {
 							setSelectedOptions={setSelectedOptions}
 						/>
 						<FilterModalTextFields>
-							<Input variant='filled' label='Add Name' />
-							<Input variant='filled' label='Add Name' />
-							<Input variant='filled' label='Add Name' />
+							{textFieldsConfig.length ? (
+								textFieldsConfig.map((item) => (
+									<Input
+										variant='filled'
+										key={item.id}
+										label={item.label}
+										id={item.id}
+										value={filters[item.id] || ''}
+										onChange={(event) => handleFilterChange(event, item.id)}
+									/>
+								))
+							) : (
+								<Input label='Add key words to find' variant={inputVariants.filled} value={''} onChange={() => null} />
+							)}
 						</FilterModalTextFields>
 						<Button text='Find' variant={buttonVariants.primary} onClick={handleModalClose} />
 					</FilterModalContainer>
@@ -119,7 +149,7 @@ const FiltersControl = () => {
 							setSelectedOptions={setSelectedOptions}
 						/>
 					</button>
-					<Input label='Add key words to find' variant={inputVariants.filled} />
+					<Input label='Add key words to find' variant={inputVariants.filled} value={''} onChange={() => null} />
 					<Button text='Find' variant={buttonVariants.primary} onClick={() => setisShowSearchField(false)} />
 				</FilterConfiguration>
 			)}

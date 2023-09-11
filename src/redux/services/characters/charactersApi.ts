@@ -1,25 +1,30 @@
+import { ICharacter } from 'types/character';
 import { applicationApi } from '../applicationApi';
-import { CharactersParams, ICharactersResponse, CharacterIDParams, ICharacter } from './types';
+import { ICharactersParams, ICharactersResponse, ICharactersResponseNormalized } from './types';
+import { normalizeCharactersResponse } from './utils';
 
 export const charactersApi = applicationApi.injectEndpoints({
 	endpoints: (builder) => ({
-		getCharacters: builder.query<ICharactersResponse, CharactersParams>({
+		getAllCharacters: builder.query<ICharactersResponseNormalized, ICharactersParams>({
 			query: ({ page }) => ({
 				url: '/character',
 				params: {
 					page,
 				},
 			}),
+			transformResponse: (response: ICharactersResponse) => normalizeCharactersResponse(response),
 		}),
-		getCharacter: builder.query<ICharacter, CharacterIDParams>({
+		getCharacter: builder.query<ICharacter, { id: number }>({
 			query: ({ id }) => ({
 				url: `/character/${id}`,
-				params: {
-					id,
-				},
+			}),
+		}),
+		getMultipleCharacters: builder.query<ICharacter[], { ids: number[] }>({
+			query: ({ ids }) => ({
+				url: `/character/${ids}`,
 			}),
 		}),
 	}),
 });
 
-export const { useGetCharactersQuery, useGetCharacterQuery } = charactersApi;
+export const { useGetAllCharactersQuery, useGetCharacterQuery, useGetMultipleCharactersQuery } = charactersApi;

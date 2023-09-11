@@ -6,7 +6,6 @@ import ProfilePage from 'pages/ProfilePage';
 import { Footer, Header } from 'components';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const App = () => (
 	<>
 		<Header />

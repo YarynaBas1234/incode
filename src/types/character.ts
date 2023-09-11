@@ -11,11 +11,35 @@ export enum CharacterFilters {
 }
 
 export enum CharacterTextFieldsId {
-	Name = 'name',
-	Status = 'status',
-	Species = 'species',
-	Type = 'type',
-	Dimension = 'dimension',
-	Gender = 'gender',
+	CharacterName = 'character-name',
+	LocationName = 'location-name',
+	EpisodeName = 'episode-name',
+	LocationStatus = 'location-status',
+	LocationSpecies = 'location-species',
+	CharacterType = 'character-type',
+	LocationType = 'location-type',
+	CharacterDimension = 'character-dimension',
+	LocationGender = 'location-gender',
 	Episodes = 'episodes',
+}
+
+export interface ICharacter {
+	id: number;
+	name: string;
+	status: CharacterStatus;
+	species: string;
+	type: string;
+	gender: string;
+	origin: {
+		name: string;
+		url: string;
+	};
+	location: {
+		name: string;
+		url: string;
+	};
+	image: string;
+	episode: string[];
+	url: string;
+	created: string;
 }
