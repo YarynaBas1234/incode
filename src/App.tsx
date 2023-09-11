@@ -12,7 +12,7 @@ const App = () => (
 		<Header />
 		<Routes>
 			<Route path={RoutePathConst.Home} element={<HomePage />} />
-			<Route path={RoutePathConst.Profile} element={<ProfilePage/>} />
+			<Route path={`${RoutePathConst.Profile}:id`} element={<ProfilePage/>} />
 		</Routes>
 		<ToastContainer />
 		<Footer />

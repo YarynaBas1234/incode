@@ -1,8 +1,8 @@
-import { Body, FabButton, H2, PaginationComponent } from 'components';
+import { Body, FabButton, H2, PaginationComponent, getStatusCharacterBadge } from 'components';
+import { RoutePathConst } from 'consts';
+import { Link } from 'react-router-dom';
 import { ICharactersResponse } from 'redux/services/characters/types';
 import { theme, styled } from 'styles';
-import { ColorsType } from 'styles/types';
-import { CharacterStatus } from 'types/character';
 
 interface CharactersProps {
 	charactersData?: ICharactersResponse;
@@ -44,39 +44,15 @@ const StatusCharacterContainer = styled.div`
 	text-transform: capitalize;
 `;
 
-const StatusCharacterBadge = styled.span<{ colorvariant: ValueOf<ColorsType> }>`
-	display: block;
-	width: 9px;
-	height: 9px;
-	margin-right: 7px;
-	border-radius: 50%;
-	background-color: ${({ colorvariant }) => colorvariant};
-`;
-
 const PaginationComponentContainer = styled.div`
 	margin-top: 17px;
 	display: flex;
 	justify-content: center;
 `;
 
-const FabButtonWrapper = styled.div`
-	position: fixed;
-    bottom: 100px;
-    right: 200px;
+const LinkStyled = styled(Link)`
+	text-decoration: none;
 `;
-
-const getStatusCharacterBadge = ({ status }: { status: ValueOf<CharacterStatus> }) => {
-	switch (status) {
-		case CharacterStatus.Alive:
-			return <StatusCharacterBadge colorvariant={theme.colors.green} />;
-		case CharacterStatus.Dead:
-			return <StatusCharacterBadge colorvariant={theme.colors.red} />;
-		case CharacterStatus.Unknown:
-			return <StatusCharacterBadge colorvariant={theme.colors.gray_1} />;
-		default:
-			return <StatusCharacterBadge colorvariant={theme.colors.gray_1} />;
-	}
-};
 
 const Characters: React.FC<CharactersProps> = (props) => {
 	const { charactersData, page, setPage } = props;
@@ -95,7 +71,9 @@ const Characters: React.FC<CharactersProps> = (props) => {
 						<CharacterImage src={item.image} alt={item.name} />
 						<CharacterItemInfo>
 							<div>
-								<H2>{item.name}</H2>
+								<LinkStyled to={RoutePathConst.Profile + item.id} aria-label='h2'>
+									<H2>{item.name}</H2>
+								</LinkStyled>
 								<StatusCharacterContainer>
 									{getStatusCharacterBadge({ status: item.status })}
 									<Body>{`${item.status} - ${item.species}`}</Body>
@@ -124,9 +102,7 @@ const Characters: React.FC<CharactersProps> = (props) => {
 			<PaginationComponentContainer>
 				<PaginationComponent pages={charactersData?.info.pages} page={page} onChange={handlePageChange} />
 			</PaginationComponentContainer>
-			<FabButtonWrapper>
-				<FabButton />
-			</FabButtonWrapper>
+			<FabButton />
 		</>
 	);
 };

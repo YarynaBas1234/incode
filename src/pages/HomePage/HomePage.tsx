@@ -4,6 +4,7 @@ import { styled, theme } from 'styles';
 import Characters from './_components/Characters/Characters';
 import { useGetCharactersQuery } from 'redux/services/characters/charactersApi';
 import FiltersControl from './_components/FiltersControl';
+import { Loader } from 'components';
 
 const HomeWrapper = styled.div`
 	padding: 40px 0 10px;
@@ -12,10 +13,10 @@ const HomeWrapper = styled.div`
 
 const HomePage = () => {
 	const [page, setPage] = useState(1);
+	
 	const { data: charactersData, isLoading: isCharactersDataLoading } = useGetCharactersQuery({ page });
 
-
-	if (isCharactersDataLoading) return <>Loading...</>;
+	if (isCharactersDataLoading) return <Loader />;
 
 	return (
 		<HomeWrapper>

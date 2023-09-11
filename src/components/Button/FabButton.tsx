@@ -26,6 +26,12 @@ const FabMoreButtons = styled.div`
 	flex-direction: column;
 `;
 
+const FabButtonWrapper = styled.div`
+	position: fixed;
+	bottom: 100px;
+	right: 200px;
+`;
+
 export const FabButton = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -34,7 +40,7 @@ export const FabButton = () => {
 	};
 
 	return (
-		<>
+		<FabButtonWrapper>
 			{isOpen && (
 				<FabMoreButtons>
 					<IconButtonStyled>
@@ -48,7 +54,7 @@ export const FabButton = () => {
 			<IconButtonWrapper>
 				<IconButtonStyled onClick={handleFabClick}>{isOpen ? <CloseIcon /> : <MoreIcon />}</IconButtonStyled>
 			</IconButtonWrapper>
-		</>
+		</FabButtonWrapper>
 	);
 };
 
