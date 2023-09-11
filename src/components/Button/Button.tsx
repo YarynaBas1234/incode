@@ -24,8 +24,8 @@ const ButtonBase = styled.button<IButtonBaseStyledProps>`
 	text-transform: ${({ theme, variant }) => theme.buttonVariants[variant].textTransform};
 	font-family: ${({ theme, variant }) => theme.buttonVariants[variant].fontFamily};
 	font-size: ${({ theme, variant }) => theme.buttonVariants[variant].fontSize};
-	line-height: ${({ theme, variant }) => theme.buttonVariants[variant].lineHeight};
-	transition: all ease .3s;
+	line-height: ${({ theme, variant }) => theme.buttonVariants[variant].leading};
+	transition: all ease 0.3s;
 	&:hover {
 		color: ${({ theme, variant }) => theme.buttonVariants[variant].hover.color};
 		background: ${({ theme, variant }) => theme.buttonVariants[variant].hover.backgroundColor};

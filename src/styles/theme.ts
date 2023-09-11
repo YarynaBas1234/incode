@@ -12,7 +12,7 @@ export const theme: ITheme = {
 			fontFamily: 'Roboto',
 			borderRadius: '4px',
 			fontSize: '16px',
-			lineHeight: '24px',
+			leading: '24px',
 			textTransform: 'uppercase',
 			cursor: 'pointer',
 			hover: {
@@ -29,7 +29,7 @@ export const theme: ITheme = {
 		filled: {
 			fontWeight: '400',
 			fontSize: '16px',
-			lineHeight: '24px',
+			leading: '24px',
 			fontFamily: 'Roboto',
 			padding: '12px 16px',
 			borderRadius: '4px 4px 0 0',

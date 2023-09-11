@@ -11,7 +11,7 @@ interface ButtonParams {
 	fontFamily: string;
     borderRadius?: string;
     fontSize: string;
-    lineHeight: string;
+    leading: string;
     textTransform: string;
 	cursor: string;
 	hover: {
@@ -28,7 +28,7 @@ interface InputParams {
 	fontWeight: string;
 	fontFamily: string;
     fontSize: string;
-    lineHeight: string;
+    leading: string;
 	padding: string;
 	borderRadius: string;
 }

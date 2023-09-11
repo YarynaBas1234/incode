@@ -1,4 +1,4 @@
-import { Body, H2, PaginationComponent } from 'components';
+import { Body, FabButton, H2, PaginationComponent } from 'components';
 import { ICharactersResponse } from 'redux/services/characters/types';
 import { theme, styled } from 'styles';
 import { ColorsType } from 'styles/types';
@@ -59,6 +59,12 @@ const PaginationComponentContainer = styled.div`
 	justify-content: center;
 `;
 
+const FabButtonWrapper = styled.div`
+	position: fixed;
+    bottom: 100px;
+    right: 200px;
+`;
+
 const getStatusCharacterBadge = ({ status }: { status: ValueOf<CharacterStatus> }) => {
 	switch (status) {
 		case CharacterStatus.Alive:
@@ -79,7 +85,7 @@ const Characters: React.FC<CharactersProps> = (props) => {
 		setPage(page);
 	};
 
-	if(!charactersData) return null;
+	if (!charactersData) return null;
 
 	return (
 		<>
@@ -118,6 +124,9 @@ const Characters: React.FC<CharactersProps> = (props) => {
 			<PaginationComponentContainer>
 				<PaginationComponent pages={charactersData?.info.pages} page={page} onChange={handlePageChange} />
 			</PaginationComponentContainer>
+			<FabButtonWrapper>
+				<FabButton />
+			</FabButtonWrapper>
 		</>
 	);
 };

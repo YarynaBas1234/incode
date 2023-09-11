@@ -26,14 +26,51 @@ const MultiSelectStyled = styled.div`
 	.MuiInputBase-root {
 		width: 100%;
 		background-color: ${theme.colors.white};
+		border-radius: 4px 4px 0 0;
+	}
+	.MuiInputLabel-root {
+		color: ${theme.colors.black_1};
+		font-size: 16px;
+	}
+	.MuiSelect-icon {
+		color: ${theme.colors.black_1};
 	}
 	.MuiInputLabel-root.MuiInputLabel-formControl.Mui-focused {
 		display: none;
 	}
+	.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-shrink {
+		display: none;
+	}
+`;
+
+const MenuItemStyled = styled(MenuItem)`
+	.MuiTypography-root {
+		font-size: 16px;
+		color: ${theme.colors.black_2};
+	}
 `;
 
 export const MultiSelect: React.FC<MultiSelectProps> = (props) => {
-	const { label = 'Select Item', onOpen, onClose, selectedOptions, setSelectedOptions, open, readOnly, options, id } = props;
+	const {
+		label = 'Select Item',
+		onOpen,
+		onClose,
+		selectedOptions,
+		setSelectedOptions,
+		open,
+		readOnly,
+		options,
+		id,
+	} = props;
+
+	const MenuProps = {
+		PaperProps: {
+			style: {
+				backgroundColor: theme.colors.white,
+				fontSize: '16px',
+			},
+		},
+	};
 
 	const handleChange = (event: SelectChangeEvent<typeof options>) => {
 		const {
@@ -57,12 +94,13 @@ export const MultiSelect: React.FC<MultiSelectProps> = (props) => {
 					readOnly={readOnly}
 					renderValue={(selected) => selected.join(', ')}
 					input={<OutlinedInput label={label} />}
+					MenuProps={MenuProps}
 				>
 					{options.map((option) => (
-						<MenuItem key={option} value={option}>
+						<MenuItemStyled key={option} value={option}>
 							<ListItemText primary={option} />
 							<Checkbox checked={selectedOptions.indexOf(option) !== -1} />
-						</MenuItem>
+						</MenuItemStyled>
 					))}
 				</Select>
 			</FormControl>

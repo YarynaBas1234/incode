@@ -65,7 +65,7 @@ const DateContainer = styled.div`
 export const Footer = () => {
 	return (
 		<FooterWrapper>
-			<FooterTitle fontWeight={700} fontSize='13.5px' lineHeight='22px'>
+			<FooterTitle fontWeight={700} fontSize='13.5px' leading='22px'>
 				performed as part of a test case for the company
 			</FooterTitle>
 			<FooterLogoContainer>
