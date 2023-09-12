@@ -24,6 +24,22 @@ export const theme: ITheme = {
 				color: colorVariants.white,
 			},
 		},
+		text: {
+			fontSize: '14px',
+			fontWeight: '500',
+			leading: '36px',
+			textTransform: 'uppercase',
+			fontFamily: 'Roboto',
+			cursor: 'pointer',
+			color: colorVariants.blue,
+
+			hover: {
+				color: colorVariants.dark_blue,
+			},
+			active: {
+				color: colorVariants.dark_blue,
+			},
+		},
 	},
 	inputVariants: {
 		filled: {

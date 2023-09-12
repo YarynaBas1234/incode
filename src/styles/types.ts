@@ -4,8 +4,8 @@ interface ButtonParams {
 	padding?: string;
 	width?: number;
 	height?: number;
-	backgroundColor: string;
-	color: string;
+	backgroundColor?: string;
+	color?: string;
 	border?: string;
 	fontWeight: string;
 	fontFamily: string;
@@ -15,11 +15,11 @@ interface ButtonParams {
     textTransform: string;
 	cursor: string;
 	hover: {
-		backgroundColor: string;
+		backgroundColor?: string;
 		color: string;
 	};
 	active: {
-		backgroundColor: string;
+		backgroundColor?: string;
 		color: string;
 	};
 }

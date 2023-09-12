@@ -7,8 +7,9 @@ import { buttonVariants, inputVariants } from 'styles/variants';
 import { characterFilterOptions, getFilterTextFields } from './utils';
 import { CharacterFilters, CharacterTextFieldsId } from 'types/character';
 import { RootState } from 'redux/types';
-import { removeFilters } from 'redux/slices/charactersFilterSlice';
+import { removeFilters, applyFilters } from 'redux/slices/charactersFilterSlice';
 import { useAppDispatch } from 'redux/hooks';
+import { filtersHistory } from 'redux/slices/historySlice';
 
 const FilterContainer = styled.div`
 	display: flex;
@@ -41,17 +42,20 @@ const FilterModalTextFields = styled.div`
 
 const FiltersControl = () => {
 	const dispatch = useAppDispatch();
+
 	const inititalFilters = useSelector((state: RootState) => state.charactersFilterSlice);
+
 	const [filters, setFilters] = useState(inititalFilters.filters);
 	const [filterOpen, setFilterOpen] = useState(false);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [options] = useState(characterFilterOptions);
-	const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-	const [isShowSearchField, setisShowSearchField] = useState(false);
+	const [selectedOptions, setSelectedOptions] = useState<string[]>(inititalFilters.selectedOptions);
+	const [isShowSearchField, setisShowSearchField] = useState(inititalFilters.apply);
 
 	useEffect(() => {
 		setFilters(inititalFilters.filters);
-	}, [inititalFilters])
+		setSelectedOptions(inititalFilters.selectedOptions);
+	}, [inititalFilters]);
 
 	const handleFilterOpen = () => {
 		setFilterOpen(true);
@@ -71,12 +75,19 @@ const FiltersControl = () => {
 		setModalOpen(false);
 	};
 
+	const handleFind = () => {
+		dispatch(applyFilters({ filters, selectedOptions }));
+		dispatch(filtersHistory(filters));
+		handleModalClose();
+		setisShowSearchField(true);
+	};
+
 	const clearSelectedOptions = () => {
 		setSelectedOptions([]);
 	};
 
 	const toggleSearchFields = () => {
-		if(isShowSearchField) {
+		if (isShowSearchField) {
 			clearSelectedOptions();
 			dispatch(removeFilters());
 		}
@@ -89,7 +100,10 @@ const FiltersControl = () => {
 		});
 	};
 
-	const textFieldsConfig = useMemo(() => getFilterTextFields(selectedOptions as CharacterFilters[]), [selectedOptions]);
+	const textFieldsConfig = useMemo(
+		() => getFilterTextFields(selectedOptions as CharacterFilters[]),
+		[selectedOptions, filters]
+	);
 
 	if (modalOpen) {
 		return (
@@ -122,7 +136,7 @@ const FiltersControl = () => {
 								<Input label='Add key words to find' variant={inputVariants.filled} value={''} onChange={() => null} />
 							)}
 						</FilterModalTextFields>
-						<Button text='Find' variant={buttonVariants.primary} onClick={handleModalClose} />
+						<Button text='Find' variant={buttonVariants.primary} onClick={handleFind} />
 					</FilterModalContainer>
 				</FilterModal>
 				<FilterContainer />

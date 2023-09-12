@@ -8,3 +8,4 @@ export * from './Button';
 export * from './MultiSelect';
 export * from './StatusCharacter';
 export * from './Loader';
+export * from './HistoryDialog';

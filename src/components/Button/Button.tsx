@@ -12,7 +12,6 @@ interface IButtonProps extends React.ComponentPropsWithoutRef<'button'> {
 	text: string;
 	isDisabled?: boolean;
 	onClick: () => void;
-	className?: string;
 }
 
 const ButtonBase = styled.button<IButtonBaseStyledProps>`

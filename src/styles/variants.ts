@@ -11,10 +11,13 @@ export const colorVariants = {
 	gray_3: '#b2b2b2',
 	red: '#D63D2E',
 	green: '#55CC44',
+	blue: '#1976D2',
+	dark_blue: '#000066',
 };
 
 export const buttonVariants = {
 	primary: 'primary',
+	text: 'text',
 };
 
 export const inputVariants = {

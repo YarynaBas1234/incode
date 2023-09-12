@@ -5,6 +5,7 @@ import { locationApi } from './services/location/locationApi';
 import { applicationApi } from './services/applicationApi';
 import { episodeApi } from './services/episode/episodeApi';
 import charactersFilterSlice from './slices/charactersFilterSlice';
+import historySlice from './slices/historySlice';
 
 const rootReducer = combineReducers({
 	[applicationApi.reducerPath]: applicationApi.reducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
 	[locationApi.reducerPath]: locationApi.reducer,
 	[episodeApi.reducerPath]: episodeApi.reducer,
 	charactersFilterSlice: charactersFilterSlice.reducer,
+	historySlice: historySlice.reducer,
 })
 
 export const store = configureStore({

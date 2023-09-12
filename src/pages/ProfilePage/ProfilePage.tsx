@@ -1,8 +1,11 @@
+import React, { useEffect } from 'react';
 import { Body, FabButton, H2, Loader, getStatusCharacterBadge } from 'components';
 import PageWrapper from 'components/PageWrapper';
 import { useParams } from 'react-router-dom';
 import { useGetCharacterQuery } from 'redux/services/characters/charactersApi';
 import { styled, theme } from 'styles';
+import { useAppDispatch } from 'redux/hooks';
+import { visitProfilePage } from 'redux/slices/historySlice';
 
 const ProfileWrapper = styled.div`
 	padding: 80px 0;
@@ -41,12 +44,20 @@ const OtherInfo = styled.div`
 `;
 
 const ProfilePage = () => {
+	const dispatch = useAppDispatch();
+
 	const { id: characterId } = useParams();
 
 	if (!characterId) return null;
 
 	const { data: character, isLoading: isCharacterDataLoading } = useGetCharacterQuery({ id: +characterId });
-	
+
+	useEffect(() => {
+		if (character?.name) {
+			dispatch(visitProfilePage(character.name));
+		}
+	}, [character]);
+
 	if (isCharacterDataLoading) return <Loader />;
 
 	if (!character) return null;

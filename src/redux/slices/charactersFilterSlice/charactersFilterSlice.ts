@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { CharacterTextFieldsId } from 'types/character';
-import { ICharactersFilterInnitialState } from './types';
+import { IApllyFilterPayload, ICharactersFilterInitialState } from './types';
 
-const initialState: ICharactersFilterInnitialState = {
+const initialState: ICharactersFilterInitialState = {
 	filters: {
 		[CharacterTextFieldsId.CharacterName]: '',
 		[CharacterTextFieldsId.CharacterType]: '',
@@ -16,6 +16,7 @@ const initialState: ICharactersFilterInnitialState = {
 		[CharacterTextFieldsId.Episodes]: '',
 	},
 	apply: false,
+	selectedOptions: [],
 };
 
 const charactersFilterSlice = createSlice({
@@ -25,16 +26,27 @@ const charactersFilterSlice = createSlice({
 		updateFilters: (state) => {
 			state = initialState;
 		},
-		applyFilters: (state) => {
-			state = initialState;
+		applyFilters: (state, { payload }: PayloadAction<IApllyFilterPayload>) => {
+			const { filters, selectedOptions } = payload;
+			const payloadArr = Object.values(filters);
+
+			const isFieldData = payloadArr.some((item) => item.length > 0);
+
+			if (isFieldData) state.apply = true;
+			else state.apply = false;
+
+			state.selectedOptions = selectedOptions;
+			state.filters = filters;
+			return state;
 		},
 		removeFilters: (state) => {
+			state.selectedOptions = initialState.selectedOptions;
 			state.filters = initialState.filters;
-			state.apply = false;
+			state.apply = initialState.apply;
 		},
 	},
 });
 
-export const { removeFilters } = charactersFilterSlice.actions;
+export const { applyFilters, removeFilters } = charactersFilterSlice.actions;
 
 export default charactersFilterSlice;
