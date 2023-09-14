@@ -4,7 +4,6 @@ import { RootState } from 'redux/types';
 import { styled, theme } from 'styles';
 
 import FiltersControl from './_components/FiltersControl';
-import { Loader } from 'components';
 import Characters from './_components/Characters/Characters';
 import { getAllDublicates } from './_components/utils';
 import PageWrapper from 'components/PageWrapper';
@@ -28,7 +27,7 @@ const HomeWrapper = styled.div`
 `;
 
 const HomePage = () => {
-	const { filters, apply: isFilter } = useSelector((state: RootState) => state.charactersFilterSlice);
+	const { filters, apply: isFilter, searchKey } = useSelector((state: RootState) => state.charactersFilterSlice);
 	const [page, setPage] = useState(1);
 	const [characterIds, setCharacterIds] = useState<number[]>([]);
 
@@ -36,10 +35,11 @@ const HomePage = () => {
 	const [getLocationsDataHandler, { isLoading: isLocationsDataLoading }] = useLazyGetLocationsQuery();
 	const [getEpisodesDataHandler, { isLoading: isEpisodesDataLoading }] = useLazyGetEpisodesQuery();
 
-	const { data: charactersData, isLoading: isAllCharactersDataLoading } = useGetAllCharactersQuery(
-		{ page },
-		{ skip: isFilter }
-	);
+	const {
+		data: charactersData,
+		isError: isAllCharactersDataError,
+		isFetching: isAllCharactersDataFetching,
+	} = useGetAllCharactersQuery({ page, name: searchKey }, { skip: isFilter });
 	const { data: multipleCharactersData, isLoading: isMultipleCharactersDataLoading } = useGetMultipleCharactersQuery(
 		{ ids: characterIds },
 		{ skip: !isFilter || !characterIds.length }
@@ -63,31 +63,47 @@ const HomePage = () => {
 		return applyiedFilters;
 	};
 
-	const saveCharactersIdsReponse = (newCharacterIds: number[][], data?: ICharactersResponseNormalized | ILocationResponseNormalized | IEpisodeResponseNormalized  ) => {
+	const saveCharactersIdsReponse = (
+		newCharacterIds: number[][],
+		data?: ICharactersResponseNormalized | ILocationResponseNormalized | IEpisodeResponseNormalized
+	) => {
 		if (data && Array.isArray(data.results)) {
 			return [...newCharacterIds, data?.charactersIds];
 		} else {
 			throw 'error';
 		}
-	}
+	};
 
 	const getCharactersDataIds = async () => {
 		if (isFilter) {
 			let newCharacterIds: number[][] = [];
 			const applyiedFilters = getFilterTypes(filters);
-			
+
 			try {
 				if (applyiedFilters[CharacterFilters.Character]) {
-					const res = await getAllCharactersHandler({ name: filters[CharacterTextFieldsId.CharacterName], status: filters[CharacterTextFieldsId.CharacterStatus], species: filters[CharacterTextFieldsId.CharacterSpecies], type: filters[CharacterTextFieldsId.CharacterType], gender: filters[CharacterTextFieldsId.CharacterGender] });
-					newCharacterIds = saveCharactersIdsReponse(newCharacterIds, res.data)
+					const res = await getAllCharactersHandler({
+						name: filters[CharacterTextFieldsId.CharacterName],
+						status: filters[CharacterTextFieldsId.CharacterStatus],
+						species: filters[CharacterTextFieldsId.CharacterSpecies],
+						type: filters[CharacterTextFieldsId.CharacterType],
+						gender: filters[CharacterTextFieldsId.CharacterGender],
+					});
+					newCharacterIds = saveCharactersIdsReponse(newCharacterIds, res.data);
 				}
 				if (applyiedFilters[CharacterFilters.Location]) {
-					const res = await getLocationsDataHandler({ name: filters[CharacterTextFieldsId.LocationName], type: filters[CharacterTextFieldsId.LocationType], dimension: filters[CharacterTextFieldsId.LocatioDimension] });
-					newCharacterIds = saveCharactersIdsReponse(newCharacterIds, res.data)
+					const res = await getLocationsDataHandler({
+						name: filters[CharacterTextFieldsId.LocationName],
+						type: filters[CharacterTextFieldsId.LocationType],
+						dimension: filters[CharacterTextFieldsId.LocatioDimension],
+					});
+					newCharacterIds = saveCharactersIdsReponse(newCharacterIds, res.data);
 				}
 				if (applyiedFilters[CharacterFilters.Episodes]) {
-					const res = await getEpisodesDataHandler({ name: filters[CharacterTextFieldsId.EpisodeName], episodes: filters[CharacterTextFieldsId.Episodes] });
-					newCharacterIds = saveCharactersIdsReponse(newCharacterIds, res.data)
+					const res = await getEpisodesDataHandler({
+						name: filters[CharacterTextFieldsId.EpisodeName],
+						episodes: filters[CharacterTextFieldsId.Episodes],
+					});
+					newCharacterIds = saveCharactersIdsReponse(newCharacterIds, res.data);
 				}
 			} catch (error) {
 				setCharacterIds([]);
@@ -106,9 +122,7 @@ const HomePage = () => {
 		isLocationsDataLoading ||
 		isEpisodesDataLoading ||
 		isMultipleCharactersDataLoading ||
-		isAllCharactersDataLoading;
-
-	if (isLoading) return <Loader />;
+		isAllCharactersDataFetching;
 
 	return (
 		<HomeWrapper>
@@ -120,6 +134,8 @@ const HomePage = () => {
 						page={page}
 						setPage={setPage}
 						data={isFilter ? multipleCharactersData : charactersData?.results}
+						isError={isAllCharactersDataError}
+						isLoading={isLoading}
 					/>
 				</>
 			</PageWrapper>

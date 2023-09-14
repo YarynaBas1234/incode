@@ -4,6 +4,7 @@ export interface ICharactersFilterInitialState {
 	filters: Record<CharacterTextFieldsId, string>;
 	apply: boolean;
 	selectedOptions: string[];
+	searchKey: string;
 }
 
 export interface IApllyFilterPayload {

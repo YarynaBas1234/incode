@@ -1,4 +1,4 @@
-import { Body, EmptyState, FabButton, H2, PaginationComponent, getStatusCharacterBadge } from 'components';
+import { Body, EmptyState, FabButton, H2, Loader, PaginationComponent, getStatusCharacterBadge } from 'components';
 import { RoutePathConst } from 'consts';
 import { Link } from 'react-router-dom';
 import { theme, styled } from 'styles';
@@ -9,6 +9,8 @@ interface CharactersProps {
 	data?: ICharacter[];
 	page: number;
 	setPage: (page: number) => void;
+	isError?: boolean;
+	isLoading?: boolean;
 }
 
 const CharactersContainer = styled.div`
@@ -56,15 +58,16 @@ const LinkStyled = styled(Link)`
 `;
 
 const Characters: React.FC<CharactersProps> = (props) => {
-	const { data, pages, page, setPage } = props;
+	const { data, pages, page, setPage, isError, isLoading } = props;
 
 	const handlePageChange = (page: number) => {
 		setPage(page);
 	};
 
-	// TODO: add empty state
-	if (!data) return <EmptyState />;
+	if (isLoading) return <Loader />;
 
+	if (!data || isError) return <EmptyState />;
+	
 	return (
 		<>
 			<CharactersContainer>
@@ -101,7 +104,7 @@ const Characters: React.FC<CharactersProps> = (props) => {
 					</CharacterItem>
 				))}
 			</CharactersContainer>
-			{pages && (
+			{pages && pages > 1 && (
 				<PaginationComponentContainer>
 					<PaginationComponent pages={pages} page={page} onChange={handlePageChange} />
 				</PaginationComponentContainer>

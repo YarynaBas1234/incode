@@ -24,15 +24,18 @@ const historySlice = createSlice({
 				}
 				return acc;
 			}, []);
-			state.data.push({
+			filters.length && state.data.push({
 				type: HistoryType.Filter,
 				filters,
 			});
 			localStorageService.addToLocalStorage('history', JSON.stringify(state.data));
 		},
+		searchHistory: (state, {payload}: PayloadAction<string>) => {
+			payload.length && state.data.push({ type: HistoryType.Search, value: `User used search by key ${payload}`})
+		}
 	},
 });
 
-export const { visitProfilePage, filtersHistory } = historySlice.actions;
+export const { visitProfilePage, filtersHistory, searchHistory } = historySlice.actions;
 
 export default historySlice;

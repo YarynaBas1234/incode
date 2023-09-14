@@ -7,13 +7,14 @@ import { buttonVariants, inputVariants } from 'styles/variants';
 import { characterFilterOptions, characterFilterTextFields, getFilterTextFields } from './utils';
 import { CharacterFilters, CharacterTextFieldsId } from 'types/character';
 import { RootState } from 'redux/types';
-import { removeFilters, applyFilters } from 'redux/slices/charactersFilterSlice';
+import { removeFilters, applyFilters, applySearch } from 'redux/slices/charactersFilterSlice';
 import { useAppDispatch } from 'redux/hooks';
-import { filtersHistory } from 'redux/slices/historySlice';
+import { filtersHistory, searchHistory } from 'redux/slices/historySlice';
 import { ICharacterFilterTextFieldItem } from './types';
 
 const FilterContainer = styled.div`
 	display: flex;
+	align-items: flex-start;
 	width: 100%;
 	min-height: 56px;
 `;
@@ -21,6 +22,7 @@ const FilterContainer = styled.div`
 const FilterConfiguration = styled.div`
 	margin-left: 160px;
 	display: flex;
+	align-items: flex-start;
 	gap: 28px;
 `;
 
@@ -47,6 +49,7 @@ const FiltersControl = () => {
 	const inititalFilters = useSelector((state: RootState) => state.charactersFilterSlice);
 
 	const [filters, setFilters] = useState<Record<CharacterTextFieldsId, string>>(inititalFilters.filters);
+	const [searchValue, setSearchValue] = useState(inititalFilters.searchKey);
 	const [filterOpen, setFilterOpen] = useState<boolean>(false);
 	const [modalOpen, setModalOpen] = useState<boolean>(false);
 	const [options] = useState(characterFilterOptions);
@@ -55,6 +58,7 @@ const FiltersControl = () => {
 
 	useEffect(() => {
 		setFilters(inititalFilters.filters);
+		setSearchValue(inititalFilters.searchKey);
 		setSelectedOptions(inititalFilters.selectedOptions);
 	}, [inititalFilters]);
 
@@ -77,8 +81,14 @@ const FiltersControl = () => {
 	};
 
 	const handleFind = () => {
-		dispatch(applyFilters({ filters, selectedOptions }));
-		dispatch(filtersHistory(filters));
+		if(selectedOptions.length) {
+			dispatch(applyFilters({ filters, selectedOptions }));
+			dispatch(filtersHistory(filters));
+		} else {
+			dispatch(applySearch(searchValue));
+			dispatch(searchHistory(searchValue));
+			setSelectedOptions([]);
+		}
 		handleModalClose();
 	};
 
@@ -91,6 +101,7 @@ const FiltersControl = () => {
 			clearSelectedOptions();
 			dispatch(removeFilters());
 		}
+		dispatch(removeFilters());
 		setisShowSearchField(!isShowSearchField);
 	};
 
@@ -98,6 +109,10 @@ const FiltersControl = () => {
 		setFilters((prev) => {
 			return { ...prev, [id]: event.target.value };
 		});
+	};
+
+	const handleSearchChange =  (event: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchValue(event.target.value);
 	};
 
 	const handleUpdateFilterOptions = (value: string[]) => {
@@ -155,7 +170,12 @@ const FiltersControl = () => {
 								/>
 							))
 						) : (
-							<Input label='Add key words to find' variant={inputVariants.filled} value='' onChange={() => null} />
+							<Input
+								label='Add key words to find'
+								variant={inputVariants.filled}
+								value={searchValue}
+								onChange={handleSearchChange}
+							/>
 						)}
 					</FilterModalTextFields>
 					<Button text='Find' type='submit' variant={buttonVariants.primary} onClick={handleFind} />
@@ -183,9 +203,27 @@ const FiltersControl = () => {
 							setSelectedOptions={setSelectedOptions}
 						/>
 					</div>
-					<div onClick={handleModalOpen}>
-						<Input label='Add key words to find' variant={inputVariants.filled} value='' onChange={() => null} />
-					</div>
+					<FilterModalTextFields>
+						{textFieldsConfig.length ? (
+							textFieldsConfig.map((item) => (
+								<Input
+									variant='filled'
+									key={item.id}
+									label={item.label}
+									id={item.id}
+									value={filters[item.id] || ''}
+									onChange={(event) => handleFilterChange(event, item.id)}
+								/>
+							))
+						) : (
+							<Input
+								label='Add key words to find'
+								variant={inputVariants.filled}
+								value={searchValue}
+								onChange={handleSearchChange}
+							/>
+						)}
+					</FilterModalTextFields>
 					<Button text='Find' type='submit' variant={buttonVariants.primary} onClick={handleFind} />
 				</FilterConfiguration>
 			)}

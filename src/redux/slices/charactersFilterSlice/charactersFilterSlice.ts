@@ -15,6 +15,7 @@ const initialState: ICharactersFilterInitialState = {
 		[CharacterTextFieldsId.EpisodeName]: '',
 		[CharacterTextFieldsId.Episodes]: '',
 	},
+	searchKey: '',
 	apply: false,
 	selectedOptions: [],
 };
@@ -27,15 +28,15 @@ const charactersFilterSlice = createSlice({
 			const { filters, selectedOptions } = payload;
 			const isFieldData = Object.values(filters).some((item) => item.length > 0);
 
-			state.selectedOptions = selectedOptions;
-			state.filters = filters;
-			state.apply = Boolean(isFieldData);
-			return state;
+			return { ...state, selectedOptions, filters, apply: Boolean(isFieldData) };
+		},
+		applySearch: (_, { payload }: PayloadAction<string>) => {
+			return { ...initialState, searchKey: payload };
 		},
 		removeFilters: () => initialState,
 	},
 });
 
-export const { applyFilters, removeFilters } = charactersFilterSlice.actions;
+export const { applyFilters, removeFilters, applySearch } = charactersFilterSlice.actions;
 
 export default charactersFilterSlice;

@@ -48,28 +48,28 @@ const CloseButton = styled(Button)`
 	font-weight: 500;
 `
 
-export const HistoryRow = ({ historyItem }: { historyItem: IHistory }) => {
-	if (historyItem.type === HistoryType.View) {
-		return (
-			<HistoryContainer>
-				<HistoryItem>
-					<Body fontWeight={400} fontSize='18px' leading='28px' color={theme.colors.gray_4}>
-						Page View:
-					</Body>
-					<Body fontWeight={400} fontSize='14px' leading='22px' color={theme.colors.black_2}>
-						{historyItem.value}
-					</Body>
-				</HistoryItem>
-			</HistoryContainer>
-		);
+const getHistoryLabel = (type:HistoryType) => {
+	switch(type) {
+		case HistoryType.View:
+			return 'Page View:'
+		case HistoryType.Search:
+			return 'Search:'
+		case HistoryType.Filter:
+			return 'Filters:'
+		default:
+			return 'Page View:'
 	}
+}
+
+export const HistoryRow = ({ historyItem }: { historyItem: IHistory }) => {
+	const historyLabel = getHistoryLabel(historyItem.type);
 
 	if (historyItem?.filters && historyItem.type === HistoryType.Filter) {
 		return (
 			<HistoryContainer>
 				<HistoryItem>
 					<Body fontWeight={400} fontSize='18px' leading='28px' color={theme.colors.gray_4}>
-						Filters:
+						{historyLabel}
 					</Body>
 					{historyItem.type === HistoryType.Filter &&
 						historyItem?.filters.map((item, i) => (
@@ -81,6 +81,20 @@ export const HistoryRow = ({ historyItem }: { historyItem: IHistory }) => {
 			</HistoryContainer>
 		);
 	}
+
+
+	return (
+		<HistoryContainer>
+			<HistoryItem>
+				<Body fontWeight={400} fontSize='18px' leading='28px' color={theme.colors.gray_4}>
+					{historyLabel}
+				</Body>
+				<Body fontWeight={400} fontSize='14px' leading='22px' color={theme.colors.black_2}>
+					{historyItem.value}
+				</Body>
+			</HistoryItem>
+		</HistoryContainer>
+	);
 
 	return null;
 };

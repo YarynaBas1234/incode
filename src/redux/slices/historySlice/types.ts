@@ -3,6 +3,7 @@ import { CharacterTextFieldsId } from 'types/character';
 export enum HistoryType {
 	Filter = 'filter',
 	View = 'view',
+	Search = 'search',
 }
 
 export interface IHistoryFilters {
