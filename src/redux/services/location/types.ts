@@ -20,5 +20,7 @@ export interface ILocationResponseNormalized extends ILocationResponse{
 }
 
 export interface ILocationParams {
-	page: number;
+	name?: string;
+	type?: string;
+	dimension?: string;
 }

@@ -20,5 +20,6 @@ export interface IEpisodeResponseNormalized extends IEpisodesResponse{
 }
 
 export interface IEpisodesParams {
-	page: number;
+	name?: string;
+	episodes?: string;
 }

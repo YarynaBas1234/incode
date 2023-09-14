@@ -5,15 +5,13 @@ import { normalizeLocationsResponse } from './utils';
 export const locationApi = applicationApi.injectEndpoints({
 	endpoints: (builder) => ({
 		getLocations: builder.query<ILocationResponseNormalized, ILocationParams>({
-			query: ({ page }) => ({
+			query: (params) => ({
 				url: '/location',
-				params: {
-					page,
-				},
+				params,
 			}),
 			transformResponse: ((response: ILocationResponse) => normalizeLocationsResponse(response))
 		}),
 	}),
 });
 
-export const { useGetLocationsQuery } = locationApi;
+export const { useLazyGetLocationsQuery } = locationApi;

@@ -11,5 +11,10 @@ export interface ICharactersResponseNormalized extends ICharactersResponse{
 }
 
 export interface ICharactersParams {
-	page: number;
+	page?: number;
+	name?: string;
+	status?: string;
+	species?: string;
+	type?: string;
+	gender?: string;
 }

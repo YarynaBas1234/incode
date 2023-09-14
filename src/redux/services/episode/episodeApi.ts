@@ -5,10 +5,10 @@ import { normalizeEpisodesResponse } from './utils';
 export const episodeApi = applicationApi.injectEndpoints({
 	endpoints: (builder) => ({
 		getEpisodes: builder.query<IEpisodeResponseNormalized, IEpisodesParams>({
-			query: ({ page }) => ({
+			query: ({ name }) => ({
 				url: '/episode',
 				params: {
-					page,
+					name,
 				},
 			}),
 			transformResponse: ((response: IEpisodesResponse) => normalizeEpisodesResponse(response)),
@@ -16,4 +16,4 @@ export const episodeApi = applicationApi.injectEndpoints({
 	}),
 });
 
-export const { useGetEpisodesQuery } = episodeApi;
+export const { useLazyGetEpisodesQuery } = episodeApi;

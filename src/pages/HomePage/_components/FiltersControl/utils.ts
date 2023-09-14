@@ -10,15 +10,15 @@ export const characterFilterOptions = [
 export const characterFilterTextFields: CharacterFilterTextFieldsType = {
 	[CharacterFilters.Character]: [
 		{ id: CharacterTextFieldsId.CharacterName, label: 'Add Character Name' },
+		{ id: CharacterTextFieldsId.CharacterStatus, label: 'Add Character Status' },
+		{ id: CharacterTextFieldsId.CharacterSpecies, label: 'Add Character Species' },
 		{ id: CharacterTextFieldsId.CharacterType, label: 'Add Character Type' },
-		{ id: CharacterTextFieldsId.CharacterDimension, label: 'Add Character Dimension' },
+		{ id: CharacterTextFieldsId.CharacterGender, label: 'Add Character Gender' },
 	],
 	[CharacterFilters.Location]: [
 		{ id: CharacterTextFieldsId.LocationName, label: 'Add Location Name' },
-		{ id: CharacterTextFieldsId.LocationStatus, label: 'Add Location Status' },
-		{ id: CharacterTextFieldsId.LocationSpecies, label: 'Add Location Species' },
 		{ id: CharacterTextFieldsId.LocationType, label: 'Add Location Type' },
-		{ id: CharacterTextFieldsId.LocationGender, label: 'Add Location Gender' },
+		{ id: CharacterTextFieldsId.LocatioDimension, label: 'Add Location Dimension' },
 	],
 	[CharacterFilters.Episodes]: [
 		{ id: CharacterTextFieldsId.EpisodeName, label: 'Add Episode Name' },

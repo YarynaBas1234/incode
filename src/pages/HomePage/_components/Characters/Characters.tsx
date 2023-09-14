@@ -1,4 +1,4 @@
-import { Body, FabButton, H2, PaginationComponent, getStatusCharacterBadge } from 'components';
+import { Body, EmptyState, FabButton, H2, PaginationComponent, getStatusCharacterBadge } from 'components';
 import { RoutePathConst } from 'consts';
 import { Link } from 'react-router-dom';
 import { theme, styled } from 'styles';
@@ -63,14 +63,14 @@ const Characters: React.FC<CharactersProps> = (props) => {
 	};
 
 	// TODO: add empty state
-	if (!data) return null;
+	if (!data) return <EmptyState />;
 
 	return (
 		<>
 			<CharactersContainer>
-				{data.map((item) => (
-					<CharacterItem key={item.id}>
-						<CharacterImage src={item.image} alt={item.name} />
+				{data.map((item, key) => (
+					<CharacterItem key={key}>
+						<CharacterImage src={item.image} alt={item?.name} />
 						<CharacterItemInfo>
 							<div>
 								<LinkStyled to={RoutePathConst.Profile + item.id} aria-label='h2'>
@@ -86,7 +86,7 @@ const Characters: React.FC<CharactersProps> = (props) => {
 									Last known location:
 								</Body>
 								<Body color={theme.colors.white} fontSize='18px'>
-									{item.location.name}
+									{item.location?.name}
 								</Body>
 							</div>
 							<div>
@@ -94,7 +94,7 @@ const Characters: React.FC<CharactersProps> = (props) => {
 									First seen in:
 								</Body>
 								<Body color={theme.colors.white} fontSize='18px'>
-									{item.origin.name}
+									{item.origin?.name}
 								</Body>
 							</div>
 						</CharacterItemInfo>

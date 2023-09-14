@@ -25,8 +25,14 @@ const StyledInput = styled(TextField)<IInputProps>`
 		color: ${theme.colors.black_1};
 		font-size: 16px;
 	}
-	.MuiInputBase-root.MuiFilledInput-root:hover {
+	.MuiInputBase-root.MuiFilledInput-root {
 		background-color: ${theme.colors.white};
+
+		&:hover {
+			background-color: ${theme.colors.white};
+		}
+	}
+	.MuiInputBase-root.MuiFilledInput-root:hover {
 	}
 `;
 

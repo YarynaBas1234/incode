@@ -1,21 +1,11 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IHistoryInitialState } from "./types";
-import { CharacterTextFieldsId } from "types/character";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { HistoryType, IHistoryInitialState } from './types';
+import { CharacterTextFieldsId } from 'types/character';
+import { historyFilters } from './utils';
+import { localStorageService } from 'storage';
 
 const initialState: IHistoryInitialState = {
-    profileViews: [],
-	filtersHistory: {
-		[CharacterTextFieldsId.CharacterName]: '',
-		[CharacterTextFieldsId.CharacterType]: '',
-		[CharacterTextFieldsId.CharacterDimension]: '',
-		[CharacterTextFieldsId.LocationName]: '',
-		[CharacterTextFieldsId.LocationStatus]: '',
-		[CharacterTextFieldsId.LocationSpecies]: '',
-		[CharacterTextFieldsId.LocationType]: '',
-		[CharacterTextFieldsId.LocationGender]: '',
-		[CharacterTextFieldsId.EpisodeName]: '',
-		[CharacterTextFieldsId.Episodes]: '',
-	}
+	data: [],
 };
 
 const historySlice = createSlice({
@@ -23,10 +13,22 @@ const historySlice = createSlice({
 	initialState,
 	reducers: {
 		visitProfilePage: (state, { payload }: PayloadAction<string>) => {
-            state.profileViews.push(`User saw information about ${payload}`);
+			state.data.push({ type: HistoryType.View, value: `User saw information about ${payload}` });
+			localStorageService.addToLocalStorage('history', JSON.stringify(state.data));
 		},
 		filtersHistory: (state, { payload }: PayloadAction<Record<CharacterTextFieldsId, string>>) => {
-			state.filtersHistory = payload;
+			const filters = Object.entries(payload).reduce<{ label: string; value: string }[]>((acc, [key, value]) => {
+				if (value) {
+					const filter = historyFilters.find((item) => item.id === key);
+					filter && acc.push({ label: filter.label, value });
+				}
+				return acc;
+			}, []);
+			state.data.push({
+				type: HistoryType.Filter,
+				filters,
+			});
+			localStorageService.addToLocalStorage('history', JSON.stringify(state.data));
 		},
 	},
 });

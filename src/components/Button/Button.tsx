@@ -12,6 +12,7 @@ interface IButtonProps extends React.ComponentPropsWithoutRef<'button'> {
 	text: string;
 	isDisabled?: boolean;
 	onClick: () => void;
+	type?: 'button' | 'submit' | 'reset';
 }
 
 const ButtonBase = styled.button<IButtonBaseStyledProps>`
@@ -36,9 +37,10 @@ const ButtonBase = styled.button<IButtonBaseStyledProps>`
 `;
 
 export const Button: React.FC<IButtonProps> = (props) => {
-	const { text, variant, onClick, className } = props;
+	const { text, variant, onClick, className, type='button' } = props;
+
 	return (
-		<ButtonBase onClick={onClick} className={className} variant={variant}>
+		<ButtonBase onClick={onClick} className={className} variant={variant} type={type}>
 			{text}
 		</ButtonBase>
 	);

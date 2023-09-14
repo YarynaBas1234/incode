@@ -12,14 +12,14 @@ export enum CharacterFilters {
 
 export enum CharacterTextFieldsId {
 	CharacterName = 'character-name',
-	LocationName = 'location-name',
-	EpisodeName = 'episode-name',
-	LocationStatus = 'location-status',
-	LocationSpecies = 'location-species',
+	CharacterStatus = 'character-status',
 	CharacterType = 'character-type',
+	CharacterSpecies = 'character-species',
+	CharacterGender = 'character-gender',
+	LocationName = 'location-name',
 	LocationType = 'location-type',
-	CharacterDimension = 'character-dimension',
-	LocationGender = 'location-gender',
+	LocatioDimension = 'location-dimension',
+	EpisodeName = 'episode-name',
 	Episodes = 'episodes',
 }
 

@@ -13,7 +13,7 @@ interface MultiSelectProps {
 	id: string;
 	options: string[];
 	selectedOptions: string[];
-	setSelectedOptions: React.Dispatch<React.SetStateAction<string[]>>;
+	setSelectedOptions: (value: string[]) => void;
 	open?: boolean;
 	onOpen?: () => void;
 	onClose?: () => void;
@@ -27,6 +27,9 @@ const MultiSelectStyled = styled.div`
 		width: 100%;
 		background-color: ${theme.colors.white};
 		border-radius: 4px 4px 0 0;
+		.MuiOutlinedInput-notchedOutline {
+			border: 0;
+		}
 	}
 	.MuiInputLabel-root {
 		color: ${theme.colors.black_1};
@@ -34,9 +37,6 @@ const MultiSelectStyled = styled.div`
 	}
 	.MuiSelect-icon {
 		color: ${theme.colors.black_1};
-	}
-	.MuiInputLabel-root.MuiInputLabel-formControl.Mui-focused {
-		display: none;
 	}
 	.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-shrink {
 		display: none;
