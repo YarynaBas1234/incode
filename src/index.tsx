@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 
 import { GlobalStyles, theme, ThemeProvider } from 'styles';
@@ -16,10 +16,10 @@ root.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>
-				<BrowserRouter>
+				<HashRouter>
 					<GlobalStyles />
 					<App />
-				</BrowserRouter>
+				</HashRouter>
 			</ThemeProvider>
 		</Provider>
 	</React.StrictMode>
