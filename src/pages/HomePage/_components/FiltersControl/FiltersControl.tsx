@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'redux/hooks';
 import Modal from '@mui/material/Modal';
 
-import { Button, MultiSelect } from 'components';
+import { ButtonBase, MultiSelect } from 'components';
 import { buttonVariants, styled } from 'styles';
 import { RootState } from 'redux/types';
 
@@ -93,7 +93,7 @@ const FiltersControl = () => {
 
 	return (
 		<FilterContainer>
-			<Button
+			<ButtonBase
 				text={isShowSearchField ? 'remove filter' : 'Filter'}
 				variant={buttonVariants.primary}
 				onClick={toggleSearchFields}

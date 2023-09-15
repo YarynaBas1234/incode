@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'redux/hooks';
 import { Form, Formik, useFormikContext } from 'formik';
 
-import { Button, Input, MultiSelect } from 'components';
+import { ButtonBase, Input, MultiSelect } from 'components';
 import { buttonVariants, inputVariants, styled } from 'styles';
 import { CharacterFilters, IObjectCharacterTextFieldsId } from 'types/character';
 
@@ -59,7 +59,7 @@ export const FilterForm: React.FC<IFilterFormProps> = (props) => {
 				acc.push(...characterFilterTextFields[filterId as CharacterFilters]);
 				return acc;
 			}, []);
-			Object.entries(values.filters).forEach(([key, value]) => {
+			Object.entries(values.filters).forEach(([key]) => {
 				const isFilter = selectedFilters.find((selectedFilter) => selectedFilter.id === key);
 				!isFilter && setFieldValue(`filters.${key}`, '')
 				
@@ -127,7 +127,7 @@ export const FilterForm: React.FC<IFilterFormProps> = (props) => {
 							/>
 						)}
 					</FilterModalTextFields>
-					<Button text='Find' type='submit' variant={buttonVariants.primary} onClick={handleSubmit} />
+					<ButtonBase text='Find' type='submit' variant={buttonVariants.primary} onClick={handleSubmit} />
 					<ClearUnselectedFilters />
 				</FormContainer>
 			)}

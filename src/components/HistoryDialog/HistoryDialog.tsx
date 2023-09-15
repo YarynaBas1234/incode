@@ -2,7 +2,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 
 import { buttonVariants, styled, theme } from 'styles';
-import { Body, Button } from 'components';
+import { Body, ButtonBase } from 'components';
 import { localStorageService } from 'storage';
 
 import { HistoryType, IHistory } from 'redux/slices/historySlice/types';
@@ -40,7 +40,7 @@ const DialogActionsStyled = styled(DialogActions)`
 		margin-top: 20px;
 	}
 `;
-const CloseButton = styled(Button)`
+const CloseButton = styled(ButtonBase)`
 	font-weight: 500;
 `;
 
