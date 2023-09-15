@@ -10,3 +10,4 @@ export * from './StatusCharacter';
 export * from './Loader';
 export * from './HistoryDialog';
 export * from './EmptyState';
+export * from './PageWrapper';

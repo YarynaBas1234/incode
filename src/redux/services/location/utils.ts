@@ -1,4 +1,5 @@
 import { getIdFromCharacterUrls } from 'redux/utils';
+
 import { ILocationResponse, ILocationResponseNormalized } from './types';
 
 export const normalizeLocationsResponse = (response: ILocationResponse): ILocationResponseNormalized => {

@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
+
 import { Body, EmptyState, FabButton, H2, Loader, PaginationComponent, getStatusCharacterBadge } from 'components';
 import { RoutePathConst } from 'consts';
-import { Link } from 'react-router-dom';
 import { theme, styled } from 'styles';
 import { ICharacter } from 'types/character';
 
@@ -18,20 +19,25 @@ const CharactersContainer = styled.div`
 	display: flex;
 	gap: 26px;
 	flex-wrap: wrap;
-`;
 
+	@media screen and (max-width: 1195px) {
+		flex-direction: column;
+    }
+`;
 const CharacterItem = styled.div`
 	width: calc(50% - 13px);
 	border-radius: 9px;
 	display: flex;
 	overflow: hidden;
-`;
 
+	@media screen and (max-width: 1195px) {
+		width: 100%;
+    }
+`;
 const CharacterImage = styled.img`
 	width: 230px;
 	oblect-fit: cover;
 `;
-
 const CharacterItemInfo = styled.div`
 	padding: 12px;
 	width: 100%;
@@ -40,29 +46,22 @@ const CharacterItemInfo = styled.div`
 	justify-content: space-between;
 	background-color: ${theme.colors.gray};
 `;
-
 const StatusCharacterContainer = styled.div`
 	display: flex;
 	align-items: center;
 	text-transform: capitalize;
 `;
-
 const PaginationComponentContainer = styled.div`
 	margin-top: 17px;
 	display: flex;
 	justify-content: center;
 `;
-
 const LinkStyled = styled(Link)`
 	text-decoration: none;
 `;
 
 const Characters: React.FC<CharactersProps> = (props) => {
 	const { data, pages, page, setPage, isError, isLoading } = props;
-
-	const handlePageChange = (page: number) => {
-		setPage(page);
-	};
 
 	if (isLoading) return <Loader />;
 
@@ -106,7 +105,7 @@ const Characters: React.FC<CharactersProps> = (props) => {
 			</CharactersContainer>
 			{pages && pages > 1 && (
 				<PaginationComponentContainer>
-					<PaginationComponent pages={pages} page={page} onChange={handlePageChange} />
+					<PaginationComponent pages={pages} page={page} onChange={(page) => setPage(page)} />
 				</PaginationComponentContainer>
 			)}
 			<FabButton />

@@ -1,7 +1,8 @@
-import { CharacterFilters, CharacterTextFieldsId } from 'types/character';
+import { CharacterFilters, ICharacterTextFieldsId } from 'types/character';
 
 export interface ICharacterFilterTextFieldItem {
-	id: CharacterTextFieldsId;
+	id: ICharacterTextFieldsId;
 	label: string;
 }
+
 export type CharacterFilterTextFieldsType = Record<CharacterFilters, ICharacterFilterTextFieldItem[]>;

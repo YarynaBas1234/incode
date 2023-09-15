@@ -1,9 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 import {ToastContainer} from 'react-toastify';
+
 import { RoutePathConst } from 'consts';
 import HomePage from 'pages/HomePage';
 import ProfilePage from 'pages/ProfilePage';
 import { Footer, Header } from 'components';
+
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => (

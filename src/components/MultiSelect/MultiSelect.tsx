@@ -5,8 +5,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
-import { styled, theme } from 'styles';
 import ListItemText from '@mui/material/ListItemText';
+
+import { styled, theme } from 'styles';
 
 interface MultiSelectProps {
 	label?: string;
@@ -42,7 +43,6 @@ const MultiSelectStyled = styled.div`
 		display: none;
 	}
 `;
-
 const MenuItemStyled = styled(MenuItem)`
 	.MuiTypography-root {
 		font-size: 16px;
@@ -73,10 +73,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = (props) => {
 	};
 
 	const handleChange = (event: SelectChangeEvent<typeof options>) => {
-		const {
-			target: { value },
-		} = event;
-		Array.isArray(value) && setSelectedOptions(value);
+		Array.isArray(event.target.value) && setSelectedOptions(event.target.value);
 	};
 
 	return (

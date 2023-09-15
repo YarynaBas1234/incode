@@ -1,13 +1,13 @@
-import { CharacterTextFieldsId } from 'types/character';
+import { IObjectCharacterTextFieldsId } from 'types/character';
 
 export interface ICharactersFilterInitialState {
-	filters: Record<CharacterTextFieldsId, string>;
+	filters: IObjectCharacterTextFieldsId;
 	apply: boolean;
 	selectedOptions: string[];
 	searchKey: string;
 }
 
 export interface IApllyFilterPayload {
-	filters: Record<CharacterTextFieldsId, string>;
+	filters: IObjectCharacterTextFieldsId;
 	selectedOptions: string[];
 }

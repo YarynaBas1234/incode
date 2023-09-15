@@ -1,19 +1,20 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { CharacterTextFieldsId } from 'types/character';
+import { ICharacterTextFieldsId } from 'types/character';
+
 import { IApllyFilterPayload, ICharactersFilterInitialState } from './types';
 
 const initialState: ICharactersFilterInitialState = {
 	filters: {
-		[CharacterTextFieldsId.CharacterName]: '',
-		[CharacterTextFieldsId.CharacterType]: '',
-		[CharacterTextFieldsId.CharacterStatus]: '',
-		[CharacterTextFieldsId.CharacterSpecies]: '',
-		[CharacterTextFieldsId.CharacterGender]: '',
-		[CharacterTextFieldsId.LocationName]: '',
-		[CharacterTextFieldsId.LocationType]: '',
-		[CharacterTextFieldsId.LocatioDimension]: '',
-		[CharacterTextFieldsId.EpisodeName]: '',
-		[CharacterTextFieldsId.Episodes]: '',
+		[ICharacterTextFieldsId.CharacterName]: '',
+		[ICharacterTextFieldsId.CharacterType]: '',
+		[ICharacterTextFieldsId.CharacterStatus]: '',
+		[ICharacterTextFieldsId.CharacterSpecies]: '',
+		[ICharacterTextFieldsId.CharacterGender]: '',
+		[ICharacterTextFieldsId.LocationName]: '',
+		[ICharacterTextFieldsId.LocationType]: '',
+		[ICharacterTextFieldsId.LocatioDimension]: '',
+		[ICharacterTextFieldsId.EpisodeName]: '',
+		[ICharacterTextFieldsId.Episodes]: '',
 	},
 	searchKey: '',
 	apply: false,

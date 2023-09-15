@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
-import { Body, FabButton, H2, Loader, getStatusCharacterBadge } from 'components';
-import PageWrapper from 'components/PageWrapper';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetCharacterQuery } from 'redux/services/characters/charactersApi';
-import { styled, theme } from 'styles';
 import { useAppDispatch } from 'redux/hooks';
+
+import { Body, FabButton, H2, Loader, PageWrapper, getStatusCharacterBadge } from 'components';
+import { styled, theme } from 'styles';
+
+import { useGetCharacterQuery } from 'redux/services/characters/charactersApi';
 import { visitProfilePage } from 'redux/slices/historySlice';
 
 const ProfileWrapper = styled.div`
@@ -12,18 +13,15 @@ const ProfileWrapper = styled.div`
 	background-color: ${theme.colors.black_1};
 	min-height: 900px;
 `;
-
 const ProfileContainer = styled.div`
 	display: flex;
 	border-radius: 9px;
 	overflow: hidden;
 `;
-
 const ProfileImage = styled.img`
 	width: 600px;
 	oblect-fit: cover;
 `;
-
 const ProfileInfo = styled.div`
 	width: 100%;
 	display: flex;
@@ -32,13 +30,11 @@ const ProfileInfo = styled.div`
 	padding: 12px 20px 12px 40px;
 	background-color: ${theme.colors.gray};
 `;
-
 const StatusCharacterContainer = styled.div`
 	display: flex;
 	align-items: center;
 	text-transform: capitalize;
 `;
-
 const OtherInfo = styled.div`
 	margin-top: 10px;
 `;

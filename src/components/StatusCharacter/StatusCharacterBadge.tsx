@@ -1,5 +1,4 @@
-import { styled, theme } from "styles";
-import { ColorsType } from "styles/types";
+import { ColorsType, styled, theme } from "styles";
 import { CharacterStatus } from "types/character";
 
 const StatusCharacterBadge = styled.span<{ colorvariant: ValueOf<ColorsType> }>`

@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
-import { MoreIcon, CloseIcon, DownloadIcon, InfoIcon } from 'components/Icons';
 import { styled, theme } from 'styles';
-import { HistoryDialog } from 'components';
+import { CloseIcon, DownloadIcon, HistoryDialog, InfoIcon, MoreIcon } from 'components';
 
 const IconButtonStyled = styled(IconButton)`
 	&.MuiIconButton-root {
@@ -20,16 +19,13 @@ const IconButtonStyled = styled(IconButton)`
 		}
 	}
 `;
-
 const IconButtonWrapper = styled.div`
 	margin-top: 8px;
 `;
-
 const FabMoreButtons = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
-
 const FabButtonWrapper = styled.div`
 	position: fixed;
 	bottom: 100px;

@@ -1,8 +1,9 @@
-import HeaderBackgroundImage from 'assets/images/header-background.svg';
+import { Link } from 'react-router-dom';
+
 import { RoutePathConst } from 'consts';
 import { H1, Logo } from 'components';
-import { Link } from 'react-router-dom';
 import { styled } from 'styles';
+import HeaderBackgroundImage from 'assets/images/header-background.svg';
 
 const HeaderWrapper = styled.header`
 	max-width: 1440px;
@@ -10,7 +11,6 @@ const HeaderWrapper = styled.header`
 	padding: 10px 27px 0;
 	margin: 0 auto;
 `;
-
 const HeaderBackground = styled.div`
 	min-height: 345px;
 	background-image: url(${HeaderBackgroundImage});

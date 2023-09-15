@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/types';
+
 import { styled, theme } from 'styles';
-
-import FiltersControl from './_components/FiltersControl';
-import Characters from './_components/Characters/Characters';
-import { getAllDublicates } from './_components/utils';
-import PageWrapper from 'components/PageWrapper';
-
+import { PageWrapper } from 'components';
+import { CharacterFilters, ICharacterTextFieldsId, IObjectCharacterTextFieldsId } from 'types/character';
 import {
 	useGetAllCharactersQuery,
 	useLazyGetAllCharactersQuery,
@@ -15,11 +12,14 @@ import {
 } from 'redux/services/characters/charactersApi';
 import { useLazyGetLocationsQuery } from 'redux/services/location/locationApi';
 import { useLazyGetEpisodesQuery } from 'redux/services/episode/episodeApi';
-import { CharacterFilters, CharacterTextFieldsId } from 'types/character';
-import { characterFilterTextFields } from './_components/FiltersControl/utils';
 import { ICharactersResponseNormalized } from 'redux/services/characters/types';
 import { ILocationResponseNormalized } from 'redux/services/location/types';
 import { IEpisodeResponseNormalized } from 'redux/services/episode/types';
+
+import FiltersControl from './_components/FiltersControl';
+import Characters from './_components/Characters';
+import { getAllDublicates } from './_components/utils';
+import { characterFilterTextFields } from './_components/FiltersControl/utils';
 
 const HomeWrapper = styled.div`
 	padding: 40px 0 10px;
@@ -28,6 +28,7 @@ const HomeWrapper = styled.div`
 
 const HomePage = () => {
 	const { filters, apply: isFilter, searchKey } = useSelector((state: RootState) => state.charactersFilterSlice);
+
 	const [page, setPage] = useState(1);
 	const [characterIds, setCharacterIds] = useState<number[]>([]);
 
@@ -45,7 +46,7 @@ const HomePage = () => {
 		{ skip: !isFilter || !characterIds.length }
 	);
 
-	const getFilterTypes = (filters: Record<CharacterTextFieldsId, string>) => {
+	const getFilterTypes = (filters: IObjectCharacterTextFieldsId) => {
 		const applyiedFilters = {
 			[CharacterFilters.Character]: false,
 			[CharacterFilters.Location]: false,
@@ -63,7 +64,7 @@ const HomePage = () => {
 		return applyiedFilters;
 	};
 
-	const saveCharactersIdsReponse = (
+	const saveCharacterIdsReponse = (
 		newCharacterIds: number[][],
 		data?: ICharactersResponseNormalized | ILocationResponseNormalized | IEpisodeResponseNormalized
 	) => {
@@ -82,28 +83,28 @@ const HomePage = () => {
 			try {
 				if (applyiedFilters[CharacterFilters.Character]) {
 					const res = await getAllCharactersHandler({
-						name: filters[CharacterTextFieldsId.CharacterName],
-						status: filters[CharacterTextFieldsId.CharacterStatus],
-						species: filters[CharacterTextFieldsId.CharacterSpecies],
-						type: filters[CharacterTextFieldsId.CharacterType],
-						gender: filters[CharacterTextFieldsId.CharacterGender],
+						name: filters[ICharacterTextFieldsId.CharacterName],
+						status: filters[ICharacterTextFieldsId.CharacterStatus],
+						species: filters[ICharacterTextFieldsId.CharacterSpecies],
+						type: filters[ICharacterTextFieldsId.CharacterType],
+						gender: filters[ICharacterTextFieldsId.CharacterGender],
 					});
-					newCharacterIds = saveCharactersIdsReponse(newCharacterIds, res.data);
+					newCharacterIds = saveCharacterIdsReponse(newCharacterIds, res.data);
 				}
 				if (applyiedFilters[CharacterFilters.Location]) {
 					const res = await getLocationsDataHandler({
-						name: filters[CharacterTextFieldsId.LocationName],
-						type: filters[CharacterTextFieldsId.LocationType],
-						dimension: filters[CharacterTextFieldsId.LocatioDimension],
+						name: filters[ICharacterTextFieldsId.LocationName],
+						type: filters[ICharacterTextFieldsId.LocationType],
+						dimension: filters[ICharacterTextFieldsId.LocatioDimension],
 					});
-					newCharacterIds = saveCharactersIdsReponse(newCharacterIds, res.data);
+					newCharacterIds = saveCharacterIdsReponse(newCharacterIds, res.data);
 				}
 				if (applyiedFilters[CharacterFilters.Episodes]) {
 					const res = await getEpisodesDataHandler({
-						name: filters[CharacterTextFieldsId.EpisodeName],
-						episodes: filters[CharacterTextFieldsId.Episodes],
+						name: filters[ICharacterTextFieldsId.EpisodeName],
+						episodes: filters[ICharacterTextFieldsId.Episodes],
 					});
-					newCharacterIds = saveCharactersIdsReponse(newCharacterIds, res.data);
+					newCharacterIds = saveCharacterIdsReponse(newCharacterIds, res.data);
 				}
 			} catch (error) {
 				setCharacterIds([]);

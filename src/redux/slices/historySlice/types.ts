@@ -1,4 +1,4 @@
-import { CharacterTextFieldsId } from 'types/character';
+import { ICharacterTextFieldsId } from 'types/character';
 
 export enum HistoryType {
 	Filter = 'filter',
@@ -7,7 +7,7 @@ export enum HistoryType {
 }
 
 export interface IHistoryFilters {
-	id: CharacterTextFieldsId;
+	id: ICharacterTextFieldsId;
 	label: string;
 }
 

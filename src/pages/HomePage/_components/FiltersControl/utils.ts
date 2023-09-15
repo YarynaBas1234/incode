@@ -1,4 +1,5 @@
-import { CharacterFilters, CharacterTextFieldsId } from 'types/character';
+import { CharacterFilters, ICharacterTextFieldsId } from 'types/character';
+
 import { CharacterFilterTextFieldsType, ICharacterFilterTextFieldItem } from './types';
 
 export const characterFilterOptions = [
@@ -9,20 +10,20 @@ export const characterFilterOptions = [
 
 export const characterFilterTextFields: CharacterFilterTextFieldsType = {
 	[CharacterFilters.Character]: [
-		{ id: CharacterTextFieldsId.CharacterName, label: 'Add Character Name' },
-		{ id: CharacterTextFieldsId.CharacterStatus, label: 'Add Character Status' },
-		{ id: CharacterTextFieldsId.CharacterSpecies, label: 'Add Character Species' },
-		{ id: CharacterTextFieldsId.CharacterType, label: 'Add Character Type' },
-		{ id: CharacterTextFieldsId.CharacterGender, label: 'Add Character Gender' },
+		{ id: ICharacterTextFieldsId.CharacterName, label: 'Add Character Name' },
+		{ id: ICharacterTextFieldsId.CharacterStatus, label: 'Add Character Status' },
+		{ id: ICharacterTextFieldsId.CharacterSpecies, label: 'Add Character Species' },
+		{ id: ICharacterTextFieldsId.CharacterType, label: 'Add Character Type' },
+		{ id: ICharacterTextFieldsId.CharacterGender, label: 'Add Character Gender' },
 	],
 	[CharacterFilters.Location]: [
-		{ id: CharacterTextFieldsId.LocationName, label: 'Add Location Name' },
-		{ id: CharacterTextFieldsId.LocationType, label: 'Add Location Type' },
-		{ id: CharacterTextFieldsId.LocatioDimension, label: 'Add Location Dimension' },
+		{ id: ICharacterTextFieldsId.LocationName, label: 'Add Location Name' },
+		{ id: ICharacterTextFieldsId.LocationType, label: 'Add Location Type' },
+		{ id: ICharacterTextFieldsId.LocatioDimension, label: 'Add Location Dimension' },
 	],
 	[CharacterFilters.Episodes]: [
-		{ id: CharacterTextFieldsId.EpisodeName, label: 'Add Episode Name' },
-		{ id: CharacterTextFieldsId.Episodes, label: 'Add Episodes' },
+		{ id: ICharacterTextFieldsId.EpisodeName, label: 'Add Episode Name' },
+		{ id: ICharacterTextFieldsId.Episodes, label: 'Add Episodes' },
 	],
 };
 

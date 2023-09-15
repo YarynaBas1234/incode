@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+
 import { charactersApi } from './services/characters/charactersApi';
 import { rtkQueryErrorLogger } from './services/rtkQueryErrorLogger';
 import { locationApi } from './services/location/locationApi';

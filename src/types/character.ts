@@ -10,7 +10,7 @@ export enum CharacterFilters {
 	Episodes = 'Episodes',
 }
 
-export enum CharacterTextFieldsId {
+export enum ICharacterTextFieldsId {
 	CharacterName = 'character-name',
 	CharacterStatus = 'character-status',
 	CharacterType = 'character-type',
@@ -22,6 +22,8 @@ export enum CharacterTextFieldsId {
 	EpisodeName = 'episode-name',
 	Episodes = 'episodes',
 }
+
+export type IObjectCharacterTextFieldsId = Record<ICharacterTextFieldsId, string>
 
 export interface ICharacter {
 	id: number;

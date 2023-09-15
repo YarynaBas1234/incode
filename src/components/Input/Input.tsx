@@ -1,9 +1,9 @@
 import { TextField } from '@mui/material';
-import { styled, theme } from 'styles';
 
-import { InputVariantsType } from 'styles/types';
+import { InputVariantsType, styled, theme } from 'styles';
 
 interface IInputProps extends React.ComponentPropsWithoutRef<'input'> {
+	name: string;
 	label: string;
 	variant: InputVariantsType;
 	value: string;
@@ -37,7 +37,9 @@ const StyledInput = styled(TextField)<IInputProps>`
 `;
 
 export const Input: React.FC<IInputProps> = (props) => {
-	const { label, variant, value, onChange, disabled } = props;
+	const { name, label, variant, value, onChange, disabled } = props;
 
-	return <StyledInput label={label} variant={variant} value={value} onChange={onChange} disabled={disabled} />;
+	return (
+		<StyledInput name={name} label={label} variant={variant} value={value} onChange={onChange} disabled={disabled} />
+	);
 };

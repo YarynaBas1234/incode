@@ -12,7 +12,6 @@ const FooterWrapper = styled.footer`
 	align-items: center;
 	overflow: hidden;
 `;
-
 const FooterTitle = styled(Body)`
 	position: relative;
 	max-width: 212px;
@@ -22,13 +21,11 @@ const FooterTitle = styled(Body)`
 	text-align: center;
 	z-index: 1;
 `;
-
 const FooterLogoContainer = styled.div`
 	position: relative;
 	width: 150px;
 	height: 150px;
 `;
-
 const FooterLogoGradient = styled.div`
 	display: flex;
 	align-items: center;
@@ -42,19 +39,16 @@ const FooterLogoGradient = styled.div`
 	background: radial-gradient(rgba(255, 255, 255, 0.22), transparent 67%);
 	z-index: 0;
 `;
-
 const FooterLogoStyled = styled(FooterLogo)`
 	width: 50px;
 	height: 50px;
 `;
-
 const ContactContainer = styled.div`
 	max-width: 130px;
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 `;
-
 const DateContainer = styled.div`
 	display: flex;
 	justify-content: center;

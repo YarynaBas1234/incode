@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { ButtonsVariantsType } from 'styles/types';
+import { ButtonsVariantsType, styled } from 'styles';
 
 interface IButtonBaseStyledProps {
 	variant: ButtonsVariantsType;
@@ -11,7 +10,7 @@ interface IButtonProps extends React.ComponentPropsWithoutRef<'button'> {
 	variant: ButtonsVariantsType;
 	text: string;
 	isDisabled?: boolean;
-	onClick: () => void;
+	onClick?: () => void;
 	type?: 'button' | 'submit' | 'reset';
 }
 
@@ -26,6 +25,8 @@ const ButtonBase = styled.button<IButtonBaseStyledProps>`
 	font-size: ${({ theme, variant }) => theme.buttonVariants[variant].fontSize};
 	line-height: ${({ theme, variant }) => theme.buttonVariants[variant].leading};
 	transition: all ease 0.3s;
+	white-space: nowrap;
+	
 	&:hover {
 		color: ${({ theme, variant }) => theme.buttonVariants[variant].hover.color};
 		background: ${({ theme, variant }) => theme.buttonVariants[variant].hover.backgroundColor};

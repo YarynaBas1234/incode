@@ -1,4 +1,5 @@
 import { ICharacter } from 'types/character';
+
 import { applicationApi } from '../applicationApi';
 import { ICharactersParams, ICharactersResponse, ICharactersResponseNormalized } from './types';
 import { normalizeCharactersResponse, normalizeMultipleCharactersReaponse } from './utils';

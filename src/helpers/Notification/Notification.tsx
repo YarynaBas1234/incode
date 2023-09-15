@@ -7,7 +7,7 @@ export type notificationProps = {
 	duration?: number;
 };
 
-export const notify = ({ message, position, type, duration = 1000 }: notificationProps) => {
+export const notify = ({ message, position, type, duration = 2000 }: notificationProps) => {
 	toast[type](message, {
 		position,
 		autoClose: duration,

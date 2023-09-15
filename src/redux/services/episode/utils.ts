@@ -1,4 +1,5 @@
 import { getIdFromCharacterUrls } from 'redux/utils';
+
 import { IEpisodesResponse, IEpisodeResponseNormalized } from './types';
 
 export const normalizeEpisodesResponse = (response: IEpisodesResponse): IEpisodeResponseNormalized => {

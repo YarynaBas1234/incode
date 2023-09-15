@@ -1,6 +1,7 @@
 import React from 'react';
 import Stack from '@mui/material/Stack';
 import Pagination from '@mui/material/Pagination';
+
 import { styled, theme } from 'styles';
 
 interface PaginationComponentProps {
@@ -41,11 +42,9 @@ const PaginationComponentStyled = styled(Pagination)`
 			}
 		}
 	}
-
 	.MuiPaginationItem-ellipsis {
 		color: ${theme.colors.white};
 	}
-
 	.MuiPaginationItem-previousNext {
 		background-color: ${theme.colors.white};
 		color: ${theme.colors.black_1};

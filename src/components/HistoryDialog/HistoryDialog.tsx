@@ -1,11 +1,11 @@
-import React from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import { styled, theme } from 'styles';
+
+import { buttonVariants, styled, theme } from 'styles';
 import { Body, Button } from 'components';
-import { buttonVariants } from 'styles/variants';
-import { HistoryType, IHistory } from 'redux/slices/historySlice/types';
 import { localStorageService } from 'storage';
+
+import { HistoryType, IHistory } from 'redux/slices/historySlice/types';
 
 interface SimpleDialogProps {
 	open: boolean;
@@ -25,17 +25,14 @@ const DialogStyled = styled(Dialog)`
 		right: -32px;
 	}
 `;
-
 const HistoryContainer = styled.div`
 	margin-top: 24px;
 `;
-
 const HistoryItem = styled.div`
 	display: flex;
 	flex-direction: column;
 	row-gap: 16px;
 `;
-
 const DialogActionsStyled = styled(DialogActions)`
 	&.MuiDialogActions-root {
 		margin-right: auto;
@@ -43,23 +40,22 @@ const DialogActionsStyled = styled(DialogActions)`
 		margin-top: 20px;
 	}
 `;
-
 const CloseButton = styled(Button)`
 	font-weight: 500;
-`
+`;
 
-const getHistoryLabel = (type:HistoryType) => {
-	switch(type) {
+const getHistoryLabel = (type: HistoryType) => {
+	switch (type) {
 		case HistoryType.View:
-			return 'Page View:'
+			return 'Page View:';
 		case HistoryType.Search:
-			return 'Search:'
+			return 'Search:';
 		case HistoryType.Filter:
-			return 'Filters:'
+			return 'Filters:';
 		default:
-			return 'Page View:'
+			return 'Page View:';
 	}
-}
+};
 
 export const HistoryRow = ({ historyItem }: { historyItem: IHistory }) => {
 	const historyLabel = getHistoryLabel(historyItem.type);
@@ -82,7 +78,6 @@ export const HistoryRow = ({ historyItem }: { historyItem: IHistory }) => {
 		);
 	}
 
-
 	return (
 		<HistoryContainer>
 			<HistoryItem>
@@ -95,8 +90,6 @@ export const HistoryRow = ({ historyItem }: { historyItem: IHistory }) => {
 			</HistoryItem>
 		</HistoryContainer>
 	);
-
-	return null;
 };
 
 export const HistoryDialog = (props: SimpleDialogProps) => {
@@ -104,12 +97,8 @@ export const HistoryDialog = (props: SimpleDialogProps) => {
 
 	const history = JSON.parse(localStorageService.getFromLocalStorage('history')) as IHistory[];
 
-	const handleClose = () => {
-		onClose();
-	};
-
 	return (
-		<DialogStyled onClose={handleClose} open={open} scroll='paper'>
+		<DialogStyled open={open} scroll='paper'>
 			<div>
 				<Body fontWeight={500} fontSize='20px' leading='32px' color={theme.colors.black_2}>
 					History
@@ -125,7 +114,7 @@ export const HistoryDialog = (props: SimpleDialogProps) => {
 				)}
 			</div>
 			<DialogActionsStyled>
-				<CloseButton onClick={handleClose} text='Close' variant={buttonVariants.text} />
+				<CloseButton onClick={onClose} text='Close' variant={buttonVariants.text} />
 			</DialogActionsStyled>
 		</DialogStyled>
 	);
