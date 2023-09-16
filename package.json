@@ -1,5 +1,5 @@
 {
-  "homepage": "https://YarynaBas1234.github.io/incode",
+  "homepage": "/incode",
   "name": "app-incode",
   "version": "0.1.0",
   "private": true,
@@ -30,11 +30,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node --max_old_space_size=2560 node_modules/.bin/react-scripts start",
-    "build": "node --max_old_space_size=2560 node_modules/.bin/react-scripts build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "test": "node --inspect node_modules/.bin/cross-env API_HOST=url ember serve",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src --fix --color",
     "lint:prepush": "npx lint-staged"
