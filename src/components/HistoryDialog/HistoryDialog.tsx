@@ -1,4 +1,4 @@
-import Dialog from '@mui/material/Dialog';
+import Drawer from '@mui/material/Drawer';
 import DialogActions from '@mui/material/DialogActions';
 
 import { buttonVariants, styled, theme } from 'styles';
@@ -12,18 +12,16 @@ interface SimpleDialogProps {
 	onClose: () => void;
 }
 
-const DialogStyled = styled(Dialog)`
-	.MuiPaper-root {
-		padding: 16px;
-		height: 570px;
-		width: 420px;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		border-radius: 9px, 0px, 0px, 9px;
-		position: absolute;
-		right: -32px;
-	}
+const DialogStyled = styled(Drawer)`
+.MuiPaper-root {
+	padding: 16px;
+	height: 570px;
+	max-width: 420px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	border-radius: 9px 0px 0px 9px;
+	position: static;
 `;
 const HistoryContainer = styled.div`
 	margin-top: 24px;
@@ -98,7 +96,14 @@ export const HistoryDialog = (props: SimpleDialogProps) => {
 	const history = JSON.parse(localStorageService.getFromLocalStorage('history')) as IHistory[];
 
 	return (
-		<DialogStyled open={open} scroll='paper'>
+		<DialogStyled
+			anchor='right'
+			open={open}
+			onClose={onClose}
+			sx={{
+				'&.MuiDrawer-root': { display: 'flex', alignItems: 'center', justifyContent: 'end' },
+			}}
+		>
 			<div>
 				<Body fontWeight={500} fontSize='20px' leading='32px' color={theme.colors.black_2}>
 					History
