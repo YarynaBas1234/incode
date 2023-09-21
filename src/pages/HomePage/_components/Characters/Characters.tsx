@@ -10,7 +10,6 @@ interface CharactersProps {
 	data?: ICharacter[];
 	page: number;
 	setPage: (page: number) => void;
-	isError?: boolean;
 	isLoading?: boolean;
 }
 
@@ -61,11 +60,11 @@ const LinkStyled = styled(Link)`
 `;
 
 const Characters: React.FC<CharactersProps> = (props) => {
-	const { data, pages, page, setPage, isError, isLoading } = props;
+	const { data, pages, page, setPage, isLoading } = props;
 
 	if (isLoading) return <Loader />;
 
-	if (!data || isError) return <EmptyState />;
+	if (!data?.length) return <EmptyState />;
 	
 	return (
 		<>

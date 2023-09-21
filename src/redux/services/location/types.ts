@@ -1,4 +1,4 @@
-import { IResponsePageInfo } from 'redux/types';
+import { IResponsePageInfo, RequestParams } from 'redux/types';
 
 export interface ILocation {
 	id: number;
@@ -19,8 +19,9 @@ export interface ILocationResponseNormalized extends ILocationResponse{
 	charactersIds: number[];
 }
 
-export interface ILocationParams {
+export interface ILocationParams extends RequestParams {
 	name?: string;
 	type?: string;
 	dimension?: string;
+	page?: number;
 }

@@ -1,4 +1,5 @@
 import { ICharacter } from 'types/character';
+import { getQueryParams } from 'redux/utils';
 
 import { applicationApi } from '../applicationApi';
 import { ICharactersParams, ICharactersResponse, ICharactersResponseNormalized } from './types';
@@ -9,7 +10,7 @@ export const charactersApi = applicationApi.injectEndpoints({
 		getAllCharacters: builder.query<ICharactersResponseNormalized, ICharactersParams>({
 			query: (params) => ({
 				url: '/character',
-				params,
+				params: getQueryParams(params),
 			}),
 			transformResponse: (response: ICharactersResponse) => normalizeCharactersResponse(response),
 		}),

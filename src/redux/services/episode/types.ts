@@ -1,4 +1,4 @@
-import { IResponsePageInfo } from 'redux/types';
+import { IResponsePageInfo, RequestParams } from 'redux/types';
 
 export interface IEpisode {
 	id: number;
@@ -19,7 +19,8 @@ export interface IEpisodeResponseNormalized extends IEpisodesResponse{
 	charactersIds: number[];
 }
 
-export interface IEpisodesParams {
+export interface IEpisodesParams extends RequestParams {
 	name?: string;
 	episodes?: string;
+	page?: number;
 }

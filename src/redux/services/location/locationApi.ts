@@ -1,3 +1,5 @@
+import { getQueryParams } from 'redux/utils';
+
 import { applicationApi } from '../applicationApi';
 import { ILocationParams, ILocationResponse, ILocationResponseNormalized } from './types';
 import { normalizeLocationsResponse } from './utils';
@@ -7,7 +9,7 @@ export const locationApi = applicationApi.injectEndpoints({
 		getLocations: builder.query<ILocationResponseNormalized, ILocationParams>({
 			query: (params) => ({
 				url: '/location',
-				params,
+				params: getQueryParams(params),
 			}),
 			transformResponse: ((response: ILocationResponse) => normalizeLocationsResponse(response))
 		}),

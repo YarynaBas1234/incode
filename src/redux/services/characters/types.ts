@@ -1,4 +1,4 @@
-import { IResponsePageInfo } from 'redux/types';
+import { IResponsePageInfo, RequestParams } from 'redux/types';
 import { ICharacter } from 'types/character';
 
 export interface ICharactersResponse {
@@ -10,7 +10,7 @@ export interface ICharactersResponseNormalized extends ICharactersResponse{
 	charactersIds: number[];
 }
 
-export interface ICharactersParams {
+export interface ICharactersParams extends RequestParams {
 	page?: number;
 	name?: string;
 	status?: string;
