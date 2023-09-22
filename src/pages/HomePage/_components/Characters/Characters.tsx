@@ -107,7 +107,7 @@ const Characters: React.FC<CharactersProps> = (props) => {
 					<PaginationComponent pages={pages} page={page} onChange={(page) => setPage(page)} />
 				</PaginationComponentContainer>
 			)}
-			<FabButton />
+			<FabButton data={data} isDownloadDisabled={!data}/>
 		</>
 	);
 };

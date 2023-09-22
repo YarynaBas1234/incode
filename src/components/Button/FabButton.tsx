@@ -1,7 +1,15 @@
 import { useState } from 'react';
+import { CSVLink } from "react-csv";
 import IconButton from '@mui/material/IconButton';
+
 import { styled, theme } from 'styles';
 import { CloseIcon, DownloadIcon, HistoryDialog, InfoIcon, MoreIcon } from 'components';
+import { ICharacter } from 'types/character';
+
+interface FabButtonProps {
+	data?: ICharacter[];
+	isDownloadDisabled?: boolean;
+}
 
 const IconButtonStyled = styled(IconButton)`
 	&.MuiIconButton-root {
@@ -15,7 +23,8 @@ const IconButtonStyled = styled(IconButton)`
 			transition: all ease 0.3;
 		}
 		&.Mui-disabled {
-			background-color: ${theme.colors.white_1};
+			background-color: ${theme.colors.gray_3};
+			transition: all ease 0.3;
 		}
 	}
 `;
@@ -32,7 +41,8 @@ const FabButtonWrapper = styled.div`
 	right: 85px;
 `;
 
-export const FabButton = () => {
+export const FabButton: React.FC<FabButtonProps> = (props) => {
+	const { data, isDownloadDisabled } = props;
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [open, setOpen] = useState(false);
@@ -57,8 +67,10 @@ export const FabButton = () => {
 						<IconButtonStyled onClick={handleInfoContainer}>
 							<InfoIcon />
 						</IconButtonStyled>
-						<IconButtonStyled disabled>
-							<DownloadIcon />
+						<IconButtonStyled disabled={isDownloadDisabled} >
+							<CSVLink data={data || []}>
+								<DownloadIcon />
+							</CSVLink>
 						</IconButtonStyled>
 					</FabMoreButtons>
 					<HistoryDialog open={open} onClose={handleClose} />

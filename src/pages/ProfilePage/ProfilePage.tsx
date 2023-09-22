@@ -98,7 +98,7 @@ const ProfilePage = () => {
 							</OtherInfo>
 						</ProfileInfo>
 					</ProfileContainer>
-					<FabButton />
+					<FabButton isDownloadDisabled={true}/>
 				</>
 			</PageWrapper>
 		</ProfileWrapper>
